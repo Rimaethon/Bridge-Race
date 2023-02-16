@@ -8,26 +8,29 @@ public class BrickStacker : MonoBehaviour
 {
     #region  Fields
     [Header("Necessary Fields For Stack System")]
-    [Tooltip("Player GameObject Reference For Collision detection")]
-    [SerializeField] private GameObject player;
     [Tooltip("Brick Holder GameObject Reference For Determining Player's Holding Point Of Bricks")]
     [SerializeField] private GameObject brickHolder;
     [Tooltip("")]
     private PlayerMovement _playerMovementScript;
     private Vector3 _brickHolderPosition;
-    private Transform _brickTransform;
     private float _brickAscend=0.1f;
-    private int _brickId;
-
-
+    public  int _brickId;
+    public List<GameObject> bricksOnPlayer;
+    public delegate void  BrickCollectingAction();
+    public static BrickCollectingAction brickCollectingAction;
+    private ObjectPooler _objectPooler;
+    private Character _character;
+    public int _brickCount=0;
     #endregion
     
 
-    #region Start And Uptade Methods
+    #region UnityMethods
     void Start()
     {
-        _brickTransform = gameObject.transform;
-        _playerMovementScript=player.GetComponent<PlayerMovement>();
+        _character = gameObject.GetComponent<Character>();
+        
+        
+        
         
     }
 
@@ -43,16 +46,31 @@ public class BrickStacker : MonoBehaviour
 
 
     #region  Private Methods
-    private void OnTriggerEnter(Collider other)
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (other.gameObject == player && _playerMovementScript.playerId==_brickId)
+       
+        
+        
+        
+        if (CharacterManager.Characters[_character]==_brickId && hit.gameObject.CompareTag("Brick"))
         {
-            _brickHolderPosition = brickHolder.transform.position;
-            _brickHolderPosition.y += _brickAscend;
-            _brickTransform.position = _brickHolderPosition;
-            _brickTransform.parent = brickHolder.transform;
-            gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
-            _brickAscend += 0.5f;
+            
+            GameObject _brickHolder = gameObject.transform.GetChild(1).gameObject;
+            Debug.Log(_brickHolder.tag);
+            _brickHolderPosition = _brickHolder.transform.position ;
+            hit.gameObject.transform.position = _brickHolderPosition+new Vector3(0,_brickAscend*_brickCount,0);
+            
+            hit.gameObject.transform.parent = _brickHolder.transform;
+            hit.gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            hit.gameObject.GetComponent<BoxCollider>().enabled = false;
+            bricksOnPlayer.Add(hit.gameObject);
+            _brickCount++;
+            //If ı start the array from 0 as usual the brickputter script's oncontrollercolliderhit method becomes able to put bricks when it has 0 brick
+            
+            
+           
+
+
 
 
 

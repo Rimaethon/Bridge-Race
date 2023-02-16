@@ -12,125 +12,191 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField] private Camera playerCamera;
     
-    private PlayerInputs _playerInput;
-    private InputAction _moveInputAction;
+    private PlayerInputMaps _playerInput;
+
+    private InputAction _touchPositionAction;
+
+    private InputAction _touchPressAction;
+
     private CharacterController _characterController;
-    private InputAction _lookInputAction;
     private Animator _animator;
     
     private bool _isRunning;
     public int playerId;
-    
-    
-    
+
+
     public float rotationSpeed = 1f;
     private float _speed = 5f;
-    private Vector2 _look;
     private float _yRotation;
     private Vector2 _move;
     private Vector3 _moveDirection;
-    private RaycastHit hitInfo;
-    private float _velocity=0f;
-    private Vector2 vector;
+    private float _rotateAngle;
+    private float _rotateSpeed=0.5f;
+    private RaycastHit _hitInfo;
+    private float _raycastValue;
+    private float _targetVelocity=0.1f;
+    private float _velocityThatWillBeAssigned;
+    private Vector3 _prevPos;
     private static readonly int Velocity = Animator.StringToHash("Velocity");
-
-    #endregion
+    private InputControl _control;
     
 
+    #endregion
+
+    
+    #region OnEnableDisable
     private void OnEnable()
     {
         
-        _playerInput.Player.Enable();
-        
-        
+        _playerInput.PlayerTouch.Enable();
+
+
+
     }
     
     private void OnDisable()
     {
-        _moveInputAction.Disable();
-        _lookInputAction.Disable();
         
+        
+        _playerInput.PlayerTouch.Disable();
     }
+    
+
+    #endregion
+    
+    
+    #region UnityMethods
+
+
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponentInChildren<Animator>();
-        _playerInput = new PlayerInputs();
-        _moveInputAction = _playerInput.Player.Movement;
-        _lookInputAction = _playerInput.Player.Look;
-
-
-
-
-
-
+        _playerInput = new PlayerInputMaps();
+        _touchPositionAction = _playerInput.PlayerTouch.Move;
+        _touchPressAction = _playerInput.PlayerTouch.TouchPress;
+        _touchPositionAction.performed += OnPlayerAction;
 
     }
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        
+        _prevPos = transform.position;
+
     }
     
     void Update()
     {
-        
+        _animator.GetFloat(Velocity);
         Move();
-        Look();
-        
 
+        // Debug.Log(_raycastValue);
     }
 
     private void FixedUpdate()
     {
         Animate();
-        Debug.Log(_velocity);
-    }
+        _velocityThatWillBeAssigned = Mathf.Lerp(_animator.GetFloat(Velocity), _targetVelocity - 0.1f, 0.1f);
+        
+        _animator.SetFloat(Velocity,_velocityThatWillBeAssigned);
 
+    }
+    
+
+    #endregion
+
+    
+    
+    #region CreatedMethods
 
     private void Look()
     {
-        
-        _yRotation= playerCamera.transform.eulerAngles.y;
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, _yRotation, transform.eulerAngles.z); 
-    }
-
-    private void Move() 
-    {
-        _move = _moveInputAction.ReadValue<Vector2>();
-        Debug.Log(_move);
-        _moveDirection = new Vector3(_move.x, 0, _move.y);
-
-        _moveDirection = transform.TransformDirection(_moveDirection);
-
-
-        
-        if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, _characterController.height / 2 + 0.1f))
+        if (_prevPos != transform.position) 
         {
-            _moveDirection.y = -hitInfo.normal.y;
+            _moveDirection = transform.position - _prevPos;
+            _rotateAngle = Mathf.Atan2(_moveDirection.z, _moveDirection.x) * Mathf.Rad2Deg;
+            Quaternion targetRotation = Quaternion.Euler(0, -1*_rotateAngle, 0);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _rotateSpeed);
+            _prevPos = transform.position;
         }
-        _characterController.Move(_moveDirection * (_speed * Time.deltaTime));
-        
-        
+
         
     }
+
+    private void Move()
+    {
+        
+        _move = _touchPositionAction.ReadValue<Vector2>();
+        _move.Normalize();
+
+        if (_move.magnitude < 0.1f)
+        {
+            return; 
+        }
+
+        if (Physics.Raycast(transform.position, Vector3.down, out _hitInfo, _characterController.height / 2 + 0.1f))
+        {
+            _raycastValue = -_hitInfo.normal.y;
+        }
+
+        Vector3 touchPosition = new Vector3(_move.x, _raycastValue, _move.y);
+
+        _characterController.Move(touchPosition * (_speed * Time.deltaTime));
+
+    }
+
 
     private void Animate()
     {
-        _animator.SetFloat(Velocity, _velocity);
-        if (_moveInputAction.ReadValue<Vector2>() != Vector2.zero && _velocity<1)
+        if (_touchPositionAction.ReadValue<Vector2>() != Vector2.zero)
         {
-            _velocity+=0.1f;
-            Debug.Log("Im working bitch");
+            if ((_targetVelocity + (_targetVelocity / 10)) <= 1.1)
+            {
+                
+                _targetVelocity+=(_targetVelocity/10);
+            }
+            else
+            {
+                _targetVelocity = 1.1f;
+            }
+            
+            
         }
-        else if(_velocity>0)
+        else if( _touchPositionAction.ReadValue<Vector2>() == Vector2.zero)
         {
-            _velocity-=0.1f;
+            if (_targetVelocity-(_targetVelocity/6)>=0.1)
+            {
+                _targetVelocity-=(_targetVelocity/6);
+            }
+            else
+            {
+                _targetVelocity = 0.1f;
+            }
         }
     }
-    
-   
-    
+
+    public void OnPlayerAction(InputAction.CallbackContext context)
+    {
+        InputControl control = context.control;
+        
+        if (control.path == "<Touchscreen>/delta")
+        {
+          
+            Vector2 moveInput = context.ReadValue<Vector2>();
+            Debug.Log(moveInput);
+         
+        }
+        else if (control.path == "<Touchscreen>/primaryTouch/startPosition")
+        {
+            
+            Vector2 touchPosition = context.ReadValue<Vector2>(); 
+            Debug.Log(touchPosition );
+        }
+    }
+
+
+    #endregion
+
     
 }
