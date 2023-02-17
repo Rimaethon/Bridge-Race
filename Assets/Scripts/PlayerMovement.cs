@@ -21,8 +21,6 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController _characterController;
     private Animator _animator;
     
-    private bool _isRunning;
-    public int playerId;
 
 
     public float rotationSpeed = 1f;
@@ -37,9 +35,9 @@ public class PlayerMovement : MonoBehaviour
     private float _targetVelocity=0.1f;
     private float _velocityThatWillBeAssigned;
     private Vector3 _prevPos;
-    private static readonly int Velocity = Animator.StringToHash("Velocity");
     private InputControl _control;
-    
+    private bool _isRunning;
+    private static readonly int IsRunning = Animator.StringToHash("IsRunning");
 
     #endregion
 
@@ -75,8 +73,7 @@ public class PlayerMovement : MonoBehaviour
         _playerInput = new PlayerInputMaps();
         _touchPositionAction = _playerInput.PlayerTouch.Move;
         _touchPressAction = _playerInput.PlayerTouch.TouchPress;
-        _touchPositionAction.performed += OnPlayerAction;
-
+        
     }
 
     private void Start()
@@ -88,20 +85,13 @@ public class PlayerMovement : MonoBehaviour
     
     void Update()
     {
-        _animator.GetFloat(Velocity);
         Move();
+        Animate();
 
         // Debug.Log(_raycastValue);
     }
 
-    private void FixedUpdate()
-    {
-        Animate();
-        _velocityThatWillBeAssigned = Mathf.Lerp(_animator.GetFloat(Velocity), _targetVelocity - 0.1f, 0.1f);
-        
-        _animator.SetFloat(Velocity,_velocityThatWillBeAssigned);
-
-    }
+    
     
 
     #endregion
@@ -127,13 +117,15 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         
-        _move = _touchPositionAction.ReadValue<Vector2>();
-        _move.Normalize();
-
-        if (_move.magnitude < 0.1f)
+        if (_touchPositionAction.ReadValue<Vector2>()!= Vector2.zero)
         {
-            return; 
+            
+            _move = _touchPositionAction.ReadValue<Vector2>();
+            _move.Normalize();
+
         }
+        
+        
 
         if (Physics.Raycast(transform.position, Vector3.down, out _hitInfo, _characterController.height / 2 + 0.1f))
         {
@@ -141,6 +133,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Vector3 touchPosition = new Vector3(_move.x, _raycastValue, _move.y);
+        Debug.Log(touchPosition);
 
         _characterController.Move(touchPosition * (_speed * Time.deltaTime));
 
@@ -149,51 +142,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void Animate()
     {
-        if (_touchPositionAction.ReadValue<Vector2>() != Vector2.zero)
+        if (_move!= Vector2.zero)
         {
-            if ((_targetVelocity + (_targetVelocity / 10)) <= 1.1)
-            {
-                
-                _targetVelocity+=(_targetVelocity/10);
-            }
-            else
-            {
-                _targetVelocity = 1.1f;
-            }
-            
-            
+            _isRunning = true;
+            _animator.SetBool(IsRunning,_isRunning);
+
+
         }
-        else if( _touchPositionAction.ReadValue<Vector2>() == Vector2.zero)
+        else if(_move== Vector2.zero)
         {
-            if (_targetVelocity-(_targetVelocity/6)>=0.1)
-            {
-                _targetVelocity-=(_targetVelocity/6);
-            }
-            else
-            {
-                _targetVelocity = 0.1f;
-            }
+            _isRunning = false;
+            _animator.SetBool(IsRunning,_isRunning);
         }
     }
 
-    public void OnPlayerAction(InputAction.CallbackContext context)
-    {
-        InputControl control = context.control;
-        
-        if (control.path == "<Touchscreen>/delta")
-        {
-          
-            Vector2 moveInput = context.ReadValue<Vector2>();
-            Debug.Log(moveInput);
-         
-        }
-        else if (control.path == "<Touchscreen>/primaryTouch/startPosition")
-        {
-            
-            Vector2 touchPosition = context.ReadValue<Vector2>(); 
-            Debug.Log(touchPosition );
-        }
-    }
+   
 
 
     #endregion
