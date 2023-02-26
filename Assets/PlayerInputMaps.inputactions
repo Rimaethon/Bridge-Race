@@ -107,10 +107,10 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "TouchPress",
-                    "type": "Button",
+                    "name": "FirstTouch",
+                    "type": "PassThrough",
                     "id": "3e90011a-1220-41c3-a4c5-1510d89d2b39",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -120,7 +120,7 @@
                 {
                     "name": "",
                     "id": "31d434e3-8b6b-4583-85a7-c13abba61a33",
-                    "path": "<Touchscreen>/delta",
+                    "path": "<Touchscreen>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -142,11 +142,11 @@
                 {
                     "name": "",
                     "id": "d642ee4f-b221-46dd-8980-d69299bbec02",
-                    "path": "<Touchscreen>/Press",
+                    "path": "<Touchscreen>/primaryTouch/startPosition",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TouchPress",
+                    "action": "FirstTouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

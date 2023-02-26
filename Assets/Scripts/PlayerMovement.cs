@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     private InputAction _touchPositionAction;
 
-    private InputAction _touchPressAction;
+    private InputAction _firstTouchAction;
 
     private CharacterController _characterController;
     private Animator _animator;
@@ -34,10 +34,13 @@ public class PlayerMovement : MonoBehaviour
     private float _raycastValue;
     private float _targetVelocity=0.1f;
     private float _velocityThatWillBeAssigned;
-    private Vector3 _prevPos;
     private InputControl _control;
     private bool _isRunning;
     private static readonly int IsRunning = Animator.StringToHash("IsRunning");
+    private Vector2 _firstTouchPosition;
+    private Vector2 _firstTouchNormalizedPosition;
+    private Vector2 _touchDraggingPosition;
+    private Vector2 _touchDraggingNormalizedPosition;
 
     #endregion
 
@@ -72,14 +75,14 @@ public class PlayerMovement : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
         _playerInput = new PlayerInputMaps();
         _touchPositionAction = _playerInput.PlayerTouch.Move;
-        _touchPressAction = _playerInput.PlayerTouch.TouchPress;
+        _firstTouchAction = _playerInput.PlayerTouch.FirstTouch;
         
     }
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        _prevPos = transform.position;
+        //_prevPos = transform.position;
 
     }
     
@@ -87,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
         Animate();
+        //GiveFirstTouchPosition();
 
         // Debug.Log(_raycastValue);
     }
@@ -99,45 +103,40 @@ public class PlayerMovement : MonoBehaviour
     
     
     #region CreatedMethods
-
-    private void Look()
-    {
-        if (_prevPos != transform.position) 
-        {
-            _moveDirection = transform.position - _prevPos;
-            _rotateAngle = Mathf.Atan2(_moveDirection.z, _moveDirection.x) * Mathf.Rad2Deg;
-            Quaternion targetRotation = Quaternion.Euler(0, -1*_rotateAngle, 0);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _rotateSpeed);
-            _prevPos = transform.position;
-        }
-
-        
-    }
+    
 
     private void Move()
     {
+        // Get the touch position in pixel coordinates
+        _firstTouchPosition = _firstTouchAction.ReadValue<Vector2>();
+    
+        // Convert pixel coordinates to normalized device coordinates
+        _firstTouchNormalizedPosition = new Vector2(
+            (_firstTouchPosition.x / Screen.width) * 2 - 1,
+            (_firstTouchPosition.y / Screen.height) * 2 - 1
+        );
         
-        if (_touchPositionAction.ReadValue<Vector2>()!= Vector2.zero)
-        {
-            
-            _move = _touchPositionAction.ReadValue<Vector2>();
-            _move.Normalize();
-
-        }
         
+        _touchDraggingPosition = _touchPositionAction.ReadValue<Vector2>();
+    
+        // Convert pixel coordinates to normalized device coordinates
+        _touchDraggingNormalizedPosition = new Vector2(
+            (_touchDraggingPosition.x / Screen.width) * 2 - 1,
+            (_touchDraggingPosition.y / Screen.height) * 2 - 1
+        );
         
+        Debug.Log("Im first touch" + _firstTouchNormalizedPosition);
+        Debug.Log("Im dragging touch" + _touchDraggingNormalizedPosition);
+        Debug.Log("Im their difference" +Vector2.Distance(_firstTouchNormalizedPosition,_touchDraggingNormalizedPosition));
 
         if (Physics.Raycast(transform.position, Vector3.down, out _hitInfo, _characterController.height / 2 + 0.1f))
         {
-            _raycastValue = -_hitInfo.normal.y;
+                _raycastValue = -_hitInfo.normal.y;
         }
 
-        Vector3 touchPosition = new Vector3(_move.x, _raycastValue, _move.y);
-        Debug.Log(touchPosition);
-
-        _characterController.Move(touchPosition * (_speed * Time.deltaTime));
-
+        
     }
+    
 
 
     private void Animate()
