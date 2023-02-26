@@ -4006,6 +4006,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 963194227}
   rotationSpeed: 1
+  smoothSpeed: 20
 --- !u!114 &1485659550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4977,6 +4978,10 @@ PrefabInstance:
     - target: {fileID: 2268121056953541300, guid: 67a00a42e99fd8540a7cfc54cabf1c88, type: 3}
       propertyPath: m_Name
       value: Stickman_heads_sphere
+      objectReference: {fileID: 0}
+    - target: {fileID: 2268121056953541300, guid: 67a00a42e99fd8540a7cfc54cabf1c88, type: 3}
+      propertyPath: m_TagString
+      value: Rig
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67a00a42e99fd8540a7cfc54cabf1c88, type: 3}

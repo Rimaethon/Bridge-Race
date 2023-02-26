@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Stair
   - Brick
+  - Rig
   layers:
   - Default
   - TransparentFX

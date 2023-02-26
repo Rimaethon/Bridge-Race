@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private InputAction _touchPositionAction;
 
     private InputAction _firstTouchAction;
+    private InputAction _touchHoldAction;
 
     private CharacterController _characterController;
     private Animator _animator;
@@ -41,6 +42,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _firstTouchNormalizedPosition;
     private Vector2 _touchDraggingPosition;
     private Vector2 _touchDraggingNormalizedPosition;
+    private GameObject _stickmanRig;
+    public float smoothSpeed = 20f;
+    private Vector2 _previousTouchPosition;
+    private Vector2 _currentTouchPosition;
+    private float targetAngle;
+    private float currentAngle;
 
     #endregion
 
@@ -76,21 +83,22 @@ public class PlayerMovement : MonoBehaviour
         _playerInput = new PlayerInputMaps();
         _touchPositionAction = _playerInput.PlayerTouch.Move;
         _firstTouchAction = _playerInput.PlayerTouch.FirstTouch;
-        
+        _stickmanRig = GameObject.FindGameObjectWithTag("Rig");
+        _touchHoldAction = _playerInput.PlayerTouch.TouchHolding;
+
     }
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        //_prevPos = transform.position;
 
     }
     
     void Update()
     {
         Move();
-        Animate();
-        //GiveFirstTouchPosition();
+        Animate(); 
+        
 
         // Debug.Log(_raycastValue);
     }
@@ -107,10 +115,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        // Get the touch position in pixel coordinates
+        
         _firstTouchPosition = _firstTouchAction.ReadValue<Vector2>();
-    
-        // Convert pixel coordinates to normalized device coordinates
+
+       
+        Debug.Log(_touchHoldAction.ReadValue<float>());
         _firstTouchNormalizedPosition = new Vector2(
             (_firstTouchPosition.x / Screen.width) * 2 - 1,
             (_firstTouchPosition.y / Screen.height) * 2 - 1
@@ -119,20 +128,43 @@ public class PlayerMovement : MonoBehaviour
         
         _touchDraggingPosition = _touchPositionAction.ReadValue<Vector2>();
     
-        // Convert pixel coordinates to normalized device coordinates
+        
         _touchDraggingNormalizedPosition = new Vector2(
             (_touchDraggingPosition.x / Screen.width) * 2 - 1,
             (_touchDraggingPosition.y / Screen.height) * 2 - 1
         );
         
-        Debug.Log("Im first touch" + _firstTouchNormalizedPosition);
-        Debug.Log("Im dragging touch" + _touchDraggingNormalizedPosition);
-        Debug.Log("Im their difference" +Vector2.Distance(_firstTouchNormalizedPosition,_touchDraggingNormalizedPosition));
+        //Debug.Log("Im first touch" + _firstTouchNormalizedPosition);
+        // Debug.Log("Im dragging touch" + _touchDraggingNormalizedPosition);
+        //Debug.Log("Im their difference" + (_touchDraggingNormalizedPosition - _firstTouchNormalizedPosition));
 
-        if (Physics.Raycast(transform.position, Vector3.down, out _hitInfo, _characterController.height / 2 + 0.1f))
+        _previousTouchPosition = _firstTouchNormalizedPosition;
+
+        _currentTouchPosition = _touchDraggingNormalizedPosition;
+        float difference = Vector2.Distance(_currentTouchPosition, _previousTouchPosition);
+        
+        if (difference > 0.1f )
         {
-                _raycastValue = -_hitInfo.normal.y;
+            
+            targetAngle = Mathf.Atan2(_touchDraggingNormalizedPosition.y, _touchDraggingNormalizedPosition.x) * -57.2957795f + 90f;
+            currentAngle = _stickmanRig.transform.eulerAngles.y;
+            
+            
+
+            // Apply the new angle to the transform
+            
+            
         }
+        float newAngle = Mathf.LerpAngle(currentAngle, targetAngle, smoothSpeed * Time.deltaTime);
+        _stickmanRig.transform.eulerAngles = new Vector3(0f, newAngle, 0f);
+        if (Math.Abs(newAngle - targetAngle) < 2)
+        {
+            _previousTouchPosition = _currentTouchPosition;
+        }
+        // if (Physics.Raycast(transform.position, Vector3.down, out _hitInfo, _characterController.height / 2 + 0.1f))
+        // {
+        //         _raycastValue = -_hitInfo.normal.y;
+        // }
 
         
     }
