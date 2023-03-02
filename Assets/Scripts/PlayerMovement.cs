@@ -24,16 +24,14 @@ public class PlayerMovement : MonoBehaviour
     
 
 
-    public float rotationSpeed = 1f;
-    private float _speed = 5f;
+    
+    private float _speed = 4f;
     private float _yRotation;
     private Vector2 _move;
     private Vector3 _moveDirection;
     private float _rotateAngle;
-    private float _rotateSpeed=0.5f;
     private RaycastHit _hitInfo;
     private float _raycastValue;
-    private float _targetVelocity=0.1f;
     private float _velocityThatWillBeAssigned;
     private InputControl _control;
     private bool _isRunning;
@@ -42,12 +40,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _firstTouchNormalizedPosition;
     private Vector2 _touchDraggingPosition;
     private Vector2 _touchDraggingNormalizedPosition;
-    private GameObject _stickmanRig;
     public float smoothSpeed = 20f;
     private Vector2 _previousTouchPosition;
     private Vector2 _currentTouchPosition;
-    private float targetAngle;
-    private float currentAngle;
+    private float _targetAngle;
+    private float _currentAngle;
+    private bool _ısPlayerWantsToMoveCharacter;
 
     #endregion
 
@@ -83,7 +81,6 @@ public class PlayerMovement : MonoBehaviour
         _playerInput = new PlayerInputMaps();
         _touchPositionAction = _playerInput.PlayerTouch.Move;
         _firstTouchAction = _playerInput.PlayerTouch.FirstTouch;
-        _stickmanRig = GameObject.FindGameObjectWithTag("Rig");
         _touchHoldAction = _playerInput.PlayerTouch.TouchHolding;
 
     }
@@ -99,8 +96,7 @@ public class PlayerMovement : MonoBehaviour
         Move();
         Animate(); 
         
-
-        // Debug.Log(_raycastValue);
+        
     }
 
     
@@ -118,8 +114,7 @@ public class PlayerMovement : MonoBehaviour
         
         _firstTouchPosition = _firstTouchAction.ReadValue<Vector2>();
 
-       
-        Debug.Log(_touchHoldAction.ReadValue<float>());
+        
         _firstTouchNormalizedPosition = new Vector2(
             (_firstTouchPosition.x / Screen.width) * 2 - 1,
             (_firstTouchPosition.y / Screen.height) * 2 - 1
@@ -143,11 +138,11 @@ public class PlayerMovement : MonoBehaviour
         _currentTouchPosition = _touchDraggingNormalizedPosition;
         float difference = Vector2.Distance(_currentTouchPosition, _previousTouchPosition);
         
-        if (difference > 0.1f )
+        if (difference > 0.01f )
         {
             
-            targetAngle = Mathf.Atan2(_touchDraggingNormalizedPosition.y, _touchDraggingNormalizedPosition.x) * -57.2957795f + 90f;
-            currentAngle = _stickmanRig.transform.eulerAngles.y;
+            _targetAngle = Mathf.Atan2(_touchDraggingNormalizedPosition.y-_firstTouchNormalizedPosition.y, _touchDraggingNormalizedPosition.x-_firstTouchNormalizedPosition.x) * -57.2957795f + 90f;
+            _currentAngle = transform.eulerAngles.y;
             
             
 
@@ -155,36 +150,55 @@ public class PlayerMovement : MonoBehaviour
             
             
         }
-        float newAngle = Mathf.LerpAngle(currentAngle, targetAngle, smoothSpeed * Time.deltaTime);
-        _stickmanRig.transform.eulerAngles = new Vector3(0f, newAngle, 0f);
-        if (Math.Abs(newAngle - targetAngle) < 2)
+        
+        float newAngle = Mathf.LerpAngle(_currentAngle, _targetAngle, smoothSpeed * Time.deltaTime);
+        transform.eulerAngles = new Vector3(0f, newAngle, 0f);
+            
+        if (Math.Abs(newAngle - _targetAngle) < 2)
         {
             _previousTouchPosition = _currentTouchPosition;
         }
-        // if (Physics.Raycast(transform.position, Vector3.down, out _hitInfo, _characterController.height / 2 + 0.1f))
-        // {
-        //         _raycastValue = -_hitInfo.normal.y;
-        // }
+        // ReSharper disable once CompareOfFloatsByEqualityOperator
+        if (difference > 0.1f && _touchHoldAction.ReadValue<float>()==1)
 
+        {
+            _ısPlayerWantsToMoveCharacter = true;
+
+        }else if (_touchHoldAction.ReadValue<float>() == 0)
+        {
+            _ısPlayerWantsToMoveCharacter = false;
+        }
+       
+        
+        
+        
+            
+        
         
     }
-    
 
+    private void FixedUpdate()
+    {
+        if (_ısPlayerWantsToMoveCharacter)
+        {
+            _characterController.SimpleMove(transform.forward * _speed  );
+            
+        }
+    }
 
     private void Animate()
     {
-        if (_move!= Vector2.zero)
+        switch (_ısPlayerWantsToMoveCharacter)
         {
-            _isRunning = true;
-            _animator.SetBool(IsRunning,_isRunning);
-
-
-        }
-        else if(_move== Vector2.zero)
-        {
-            _isRunning = false;
-            _animator.SetBool(IsRunning,_isRunning);
-        }
+            case true:
+                _isRunning = true;
+                _animator.SetBool(IsRunning,_isRunning);
+                break;
+            default:
+                _isRunning = false;
+                _animator.SetBool(IsRunning,_isRunning);
+                break;
+        }  
     }
 
    

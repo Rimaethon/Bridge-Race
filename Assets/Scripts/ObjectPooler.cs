@@ -15,7 +15,7 @@ public class ObjectPooler : MonoBehaviour
 
 
     
-    void Start()
+    void Awake()
     {
         _brickPools = new List<GameObject>[brickPrefabs.Length];
         for (int i = 0; i < brickPrefabs.Length; i++)
@@ -40,18 +40,24 @@ public class ObjectPooler : MonoBehaviour
         {
             if (!_brickPools[brickType][i].activeInHierarchy)
             {
-            
+                
                 return _brickPools[brickType][i];
             }
         }
-
-        _brick= Instantiate(brickPrefabs[brickType]);
-        _brickPools[brickType].Add(_brick);
-        return _brick;
+        
+        if (_brickPools[brickType].Count < poolSize)
+        {
+            _brick = Instantiate(brickPrefabs[brickType]);
+            _brick.SetActive(false);
+            _brickPools[brickType].Add(_brick);
+            return _brick;
+        }
+    
+        return null;
     }
 
-    public void ReturnEnemyPool(GameObject enemy)
+    public void ReturnEnemyPool(GameObject brick)
     {
-        enemy.SetActive(false);
+        brick.SetActive(false);
     }
 }
