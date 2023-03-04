@@ -20,12 +20,9 @@ public class PlayerMovement : MonoBehaviour
     private InputAction _touchHoldAction;
 
     private CharacterController _characterController;
+    
     private Animator _animator;
-    
-
-
-    
-    private float _speed = 4f;
+    private float _speed = 0.075f;
     private float _yRotation;
     private Vector2 _move;
     private Vector3 _moveDirection;
@@ -46,7 +43,6 @@ public class PlayerMovement : MonoBehaviour
     private float _targetAngle;
     private float _currentAngle;
     private bool _ısPlayerWantsToMoveCharacter;
-
     #endregion
 
     
@@ -129,9 +125,7 @@ public class PlayerMovement : MonoBehaviour
             (_touchDraggingPosition.y / Screen.height) * 2 - 1
         );
         
-        //Debug.Log("Im first touch" + _firstTouchNormalizedPosition);
-        // Debug.Log("Im dragging touch" + _touchDraggingNormalizedPosition);
-        //Debug.Log("Im their difference" + (_touchDraggingNormalizedPosition - _firstTouchNormalizedPosition));
+       
 
         _previousTouchPosition = _firstTouchNormalizedPosition;
 
@@ -181,9 +175,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_ısPlayerWantsToMoveCharacter)
         {
-            _characterController.SimpleMove(transform.forward * _speed  );
+            _characterController.Move(transform.forward * _speed );
+            
             
         }
+        _characterController.Move(transform.up * -0.1f );
     }
 
     private void Animate()

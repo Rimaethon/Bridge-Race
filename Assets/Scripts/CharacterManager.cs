@@ -6,9 +6,9 @@ public class CharacterManager : MonoBehaviour
 {
     
     
-    public static Dictionary<Character,int > Characters = new Dictionary<Character,int>();
+    public static Dictionary<Character,string > Characters = new Dictionary<Character,string>();
 
-    public void RegisterCharacter(int id, Character character)
+    public void RegisterCharacter(string id, Character character)
     {
     Characters[character] = id;
     }

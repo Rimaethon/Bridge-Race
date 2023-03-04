@@ -16,10 +16,11 @@ public class BrickStacker : MonoBehaviour
     private Vector3 _brickHolderPosition;
     private float _brickAscend=0.1f;
     public List<GameObject> bricksOnPlayer;
-    public delegate void  BrickCollectingAction();
-    public static BrickCollectingAction brickCollectingAction;
+    
+    
     private ObjectPooler _objectPooler;
     private Character _character;
+    private CharacterController _controller;
     public int _brickCount=0;
     #endregion
     
@@ -31,15 +32,9 @@ public class BrickStacker : MonoBehaviour
         
         
         
-        
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-
-    }
     
 
     #endregion
@@ -52,7 +47,7 @@ public class BrickStacker : MonoBehaviour
 
         if (hit.gameObject.CompareTag("Brick"))
         {
-            if (CharacterManager.Characters[_character]==hit.gameObject.GetComponent<Brick>().brickType )
+            if (gameObject.GetComponent<Character>().CharacterID==hit.gameObject.GetComponent<Brick>().brickType )
             {
                 Debug.Log("Confirmed");
 

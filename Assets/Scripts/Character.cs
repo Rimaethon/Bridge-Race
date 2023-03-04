@@ -1,13 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
-    public int ID;
+    public int CharacterID;
 
-    private void Start()
-    {
-        CharacterManager.Characters.Add(this,ID);
-    }
 }
