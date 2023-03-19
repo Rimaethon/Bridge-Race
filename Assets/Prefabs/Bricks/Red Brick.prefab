@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5631002971418468608}
   - component: {fileID: 5631002971418468609}
   - component: {fileID: 5631002971418468610}
-  - component: {fileID: 1724611174}
+  - component: {fileID: 1231790541953688650}
   m_Layer: 0
   m_Name: Red Brick
   m_TagString: Brick
@@ -98,7 +98,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 3, z: 1}
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &1724611174
+--- !u!114 &1231790541953688650
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5631002971418468620}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f713f7b86b2699439a7afb7fc9f2b2a, type: 3}
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brickType: 2
+  colorType: 1

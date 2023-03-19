@@ -3,75 +3,104 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
 
 public class BrickStacker : MonoBehaviour
 {
     #region  Fields
-    [Header("Necessary Fields For Stack System")]
-    [Tooltip("Brick Holder GameObject Reference For Determining Player's Holding Point Of Bricks")]
-    [SerializeField] private GameObject brickHolder;
-    [Tooltip("")]
-    private PlayerMovement _playerMovementScript;
+
+    private TypeDeterminer.ColorEnum _newBricksColor;
+    private TypeDeterminer.ColorEnum _charactersColor;
+    private int _brickCount;
+    private GameObject _brickHolder;
     private Vector3 _brickHolderPosition;
-    private float _brickAscend=0.1f;
-    public List<GameObject> bricksOnPlayer;
+    private GameObject _newBrick;
+    private GameObject _collidedStair;
     
     
-    private ObjectPooler _objectPooler;
-    private Character _character;
-    private CharacterController _controller;
-    public int _brickCount=0;
     #endregion
+    
     
 
     #region UnityMethods
-    void Start()
+
+    private void Start()
     {
-        _character = gameObject.GetComponent<Character>();
-        
-        
+        _charactersColor = gameObject.GetComponent<TypeDeterminer>().ColorType;
+        _brickHolder = gameObject.transform.GetChild(1).gameObject;
         
     }
 
-    // Update is called once per frame
+    private void OnTriggerEnter(Collider other)
+    {
+        
+        if (other.gameObject.CompareTag("Brick"))
+        {
+            CollectBrick(other);
+            
+            
+        }else if(other.gameObject.CompareTag("Stair"))
+        {
+
+            PutBrickToStair(other);
+        }
+    }
+
     
 
     #endregion
 
 
-    #region  Private Methods
+    #region  Custom Methods
 
-    private void OnTriggerEnter(Collider hit)
+    private void CollectBrick(Collider other)
     {
-
-        if (hit.gameObject.CompareTag("Brick"))
-        {
-            if (gameObject.GetComponent<Character>().CharacterID==hit.gameObject.GetComponent<Brick>().brickType )
+        
+        _newBrick = other.gameObject;
+        _newBricksColor = _newBrick.GetComponent<TypeDeterminer>().ColorType;
+        
+            
+        if (_charactersColor==_newBricksColor)
+        {    
+            
+            if (!GameDataHolder.bricksOnCharacters.ContainsKey(_charactersColor))
             {
-                Debug.Log("Confirmed");
-
-                GameObject _brickHolder = gameObject.transform.GetChild(1).gameObject;
-                Debug.Log(_brickHolder.tag);
-                _brickHolderPosition = _brickHolder.transform.position ;
-                hit.gameObject.transform.position = _brickHolderPosition+new Vector3(0,_brickAscend*_brickCount,0);
-            
-                hit.gameObject.transform.parent = _brickHolder.transform;
-                hit.gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                hit.gameObject.GetComponent<BoxCollider>().enabled = false;
-                bricksOnPlayer.Add(hit.gameObject);
-                _brickCount++;
-                //If ı start the array from 0 as usual the brickputter script's oncontrollercolliderhit method becomes able to put bricks when it has 0 brick
-
+                GameDataHolder.bricksOnCharacters[_charactersColor] = new List<GameObject>();
             }
-            
-            
+            _newBrick.transform.position = _brickHolder.transform.position+ new Vector3(0, 0.105f *GameDataHolder.bricksOnCharacters[_charactersColor].Count , 0);
+            _newBrick.transform.parent = _brickHolder.transform;
+            _newBrick.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            _newBrick.GetComponent<BoxCollider>().enabled = false;
+            GameDataHolder.bricksOnCharacters[_charactersColor].Add(_newBrick);
+
+            EventManager.Broadcast(GameEvent.OnCollectingBrick,_charactersColor);
         }
         
-        
     }
     
+    
+    private void PutBrickToStair(Collider other)
+    {
+        _collidedStair = other.gameObject;
+        _collidedStairsColor = _collidedStair.GetComponent<TypeDeterminer>().ColorType;
+        Debug.Log(_collidedStairsColor);
 
+        if (_charactersColor!=_collidedStairsColor)
+        {
+            Debug.Log("ım colliding");
+            EventManager.Broadcast(GameEvent.OnPuttingBrick,_collidedStair,_charactersColor);
+            gameObject.GetComponent<CharacterController>().stepOffset= GameDataHolder.characterStepOffsets[_charactersColor];
+        }
+        else
+        {
+            gameObject.GetComponent<CharacterController>().stepOffset = 0.35f;
+        }
+
+        
+    }
     #endregion
-   
+
 }
+
+

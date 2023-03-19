@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7222738367314112376}
   - component: {fileID: -9087283517318345032}
   m_Layer: 0
-  m_Name: Blue Brick
+  m_Name: Brick
   m_TagString: Brick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bdd93d0980018394fb12d7078031a8eb, type: 2}
+  - {fileID: 2100000, guid: bb2c3e35964576c46b74ee56f515b7b3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorType: 0
+  colorType: 3
 --- !u!114 &-9087283517318345032
 MonoBehaviour:
   m_ObjectHideFlags: 0

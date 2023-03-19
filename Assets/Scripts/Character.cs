@@ -1,10 +1,20 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Character : MonoBehaviour
+public abstract class Character : MonoBehaviour
 {
-    public int CharacterID;
+    [SerializeField] protected Camera playerCamera;
+    protected Animator animator;
+    protected float speed = 0.075f;
 
+    protected virtual void Awake()
+    {
+        animator = GetComponentInChildren<Animator>();
+    }
+
+    protected virtual void Animate(bool isRunning)
+    {
+        animator.SetBool("IsRunning", isRunning);
+    }
+
+    protected abstract void Move();
 }

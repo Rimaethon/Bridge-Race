@@ -17,7 +17,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &345144960
 Transform:
@@ -114,7 +114,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &554807693
 Transform:
@@ -212,7 +212,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &645354172
 Transform:
@@ -310,7 +310,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1140343697
 Transform:
@@ -406,7 +406,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1538771880
 Transform:
@@ -457,7 +457,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1669421026
 Transform:
@@ -550,13 +550,14 @@ GameObject:
   - component: {fileID: 1051765182905764029}
   - component: {fileID: 1051765182905764028}
   - component: {fileID: 1051765182905764031}
-  - component: {fileID: 1488551776}
+  - component: {fileID: 1268302818175521763}
+  - component: {fileID: 1177299280}
   m_Layer: 0
-  m_Name: Brick (14)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765182905764030
 Transform:
@@ -652,7 +653,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1488551776
+--- !u!114 &1268302818175521763
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -661,11 +662,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765182905764017}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &1177299280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051765182905764017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &1051765182966603369
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,13 +691,14 @@ GameObject:
   - component: {fileID: 1051765182966603285}
   - component: {fileID: 1051765182966603284}
   - component: {fileID: 1051765182966603287}
-  - component: {fileID: 2144156119}
+  - component: {fileID: 4951993114882760758}
+  - component: {fileID: 1822207918}
   m_Layer: 0
-  m_Name: Brick (11)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765182966603286
 Transform:
@@ -781,7 +794,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2144156119
+--- !u!114 &4951993114882760758
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -790,11 +803,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765182966603369}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &1822207918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051765182966603369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &1051765183059554898
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,13 +832,14 @@ GameObject:
   - component: {fileID: 1051765183059554910}
   - component: {fileID: 1051765183059554897}
   - component: {fileID: 1051765183059554896}
-  - component: {fileID: 1881583844}
+  - component: {fileID: 1172008906706314413}
+  - component: {fileID: 665191957}
   m_Layer: 0
-  m_Name: Brick (9)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765183059554899
 Transform:
@@ -910,7 +935,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1881583844
+--- !u!114 &1172008906706314413
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -919,11 +944,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765183059554898}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &665191957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051765183059554898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &1051765183195891044
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,13 +973,14 @@ GameObject:
   - component: {fileID: 1051765183195891040}
   - component: {fileID: 1051765183195891043}
   - component: {fileID: 1051765183195891042}
-  - component: {fileID: 1933847966}
+  - component: {fileID: 2097530117538025244}
+  - component: {fileID: 1012183380}
   m_Layer: 0
-  m_Name: Brick (8)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765183195891045
 Transform:
@@ -1039,7 +1076,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1933847966
+--- !u!114 &2097530117538025244
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1048,11 +1085,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765183195891044}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &1012183380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051765183195891044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &1051765183224573596
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,13 +1114,14 @@ GameObject:
   - component: {fileID: 1051765183224573592}
   - component: {fileID: 1051765183224573595}
   - component: {fileID: 1051765183224573594}
-  - component: {fileID: 15130218}
+  - component: {fileID: 1761381902444497582}
+  - component: {fileID: 1973416289}
   m_Layer: 0
-  m_Name: Brick (22)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765183224573597
 Transform:
@@ -1168,7 +1217,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &15130218
+--- !u!114 &1761381902444497582
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1177,11 +1226,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765183224573596}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &1973416289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051765183224573596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &1051765183324415710
 GameObject:
   m_ObjectHideFlags: 0
@@ -1199,7 +1259,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765183324415706
 Transform:
@@ -1292,13 +1352,14 @@ GameObject:
   - component: {fileID: 1051765183432467772}
   - component: {fileID: 1051765183432467775}
   - component: {fileID: 1051765183432467774}
-  - component: {fileID: 445136216}
+  - component: {fileID: 5780954927390246468}
+  - component: {fileID: 889387212}
   m_Layer: 0
-  m_Name: Brick (15)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765183432467761
 Transform:
@@ -1394,7 +1455,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &445136216
+--- !u!114 &5780954927390246468
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1403,140 +1464,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765183432467760}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
---- !u!1 &1051765183468515307
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1051765183468515221}
-  - component: {fileID: 1051765183468515220}
-  - component: {fileID: 1051765183468515223}
-  - component: {fileID: 1051765183468515222}
-  - component: {fileID: 1051765183468515304}
-  - component: {fileID: 1034517058}
-  m_Layer: 0
-  m_Name: Brick (2)
-  m_TagString: Stair
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1051765183468515221
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1051765183468515307}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.15000004, z: 0}
-  m_LocalScale: {x: 2.5, y: 0.4, z: 0.6}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1051765183894643109}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1051765183468515220
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1051765183468515307}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &1051765183468515223
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1051765183468515307}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: bdd93d0980018394fb12d7078031a8eb, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1051765183468515222
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1051765183468515307}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &1051765183468515304
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1051765183468515307}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &1034517058
+--- !u!114 &889387212
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1051765183468515307}
+  m_GameObject: {fileID: 1051765183432467760}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+  colorType: 3
 --- !u!1 &1051765183503618485
 GameObject:
   m_ObjectHideFlags: 0
@@ -1550,13 +1493,14 @@ GameObject:
   - component: {fileID: 1051765183503618481}
   - component: {fileID: 1051765183503618480}
   - component: {fileID: 1051765183503618483}
-  - component: {fileID: 1193389681}
+  - component: {fileID: 2856741482315336808}
+  - component: {fileID: 663499642}
   m_Layer: 0
-  m_Name: Brick (17)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765183503618482
 Transform:
@@ -1652,7 +1596,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1193389681
+--- !u!114 &2856741482315336808
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1661,11 +1605,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765183503618485}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &663499642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051765183503618485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &1051765183630463499
 GameObject:
   m_ObjectHideFlags: 0
@@ -1679,13 +1634,14 @@ GameObject:
   - component: {fileID: 1051765183630463543}
   - component: {fileID: 1051765183630463542}
   - component: {fileID: 1051765183630463497}
-  - component: {fileID: 1699840406}
+  - component: {fileID: 8288664562886444388}
+  - component: {fileID: 901566718}
   m_Layer: 0
-  m_Name: Brick (7)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765183630463496
 Transform:
@@ -1781,7 +1737,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1699840406
+--- !u!114 &8288664562886444388
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1790,11 +1746,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765183630463499}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &901566718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051765183630463499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &1051765183655682356
 GameObject:
   m_ObjectHideFlags: 0
@@ -1808,13 +1775,14 @@ GameObject:
   - component: {fileID: 1051765183655682352}
   - component: {fileID: 1051765183655682355}
   - component: {fileID: 1051765183655682354}
-  - component: {fileID: 195486926}
+  - component: {fileID: 1513566564485415323}
+  - component: {fileID: 628344765}
   m_Layer: 0
-  m_Name: Brick (23)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765183655682357
 Transform:
@@ -1910,7 +1878,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &195486926
+--- !u!114 &1513566564485415323
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1919,11 +1887,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765183655682356}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &628344765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051765183655682356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &1051765183663619496
 GameObject:
   m_ObjectHideFlags: 0
@@ -1937,13 +1916,14 @@ GameObject:
   - component: {fileID: 1051765183663619412}
   - component: {fileID: 1051765183663619415}
   - component: {fileID: 1051765183663619414}
-  - component: {fileID: 1460112263}
+  - component: {fileID: 4701591428251617341}
+  - component: {fileID: 479432166}
   m_Layer: 0
-  m_Name: Brick (19)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765183663619497
 Transform:
@@ -2039,7 +2019,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1460112263
+--- !u!114 &4701591428251617341
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2048,11 +2028,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765183663619496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &479432166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051765183663619496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &1051765183832725024
 GameObject:
   m_ObjectHideFlags: 0
@@ -2066,13 +2057,14 @@ GameObject:
   - component: {fileID: 1051765183832725036}
   - component: {fileID: 1051765183832725039}
   - component: {fileID: 1051765183832725038}
-  - component: {fileID: 422779657}
+  - component: {fileID: 9156598797293769660}
+  - component: {fileID: 1321288518}
   m_Layer: 0
-  m_Name: Brick (3)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765183832725025
 Transform:
@@ -2168,7 +2160,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &422779657
+--- !u!114 &9156598797293769660
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2177,11 +2169,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765183832725024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &1321288518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051765183832725024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &1051765183852306802
 GameObject:
   m_ObjectHideFlags: 0
@@ -2195,13 +2198,14 @@ GameObject:
   - component: {fileID: 1051765183852306814}
   - component: {fileID: 1051765183852306801}
   - component: {fileID: 1051765183852306800}
-  - component: {fileID: 1899555709}
+  - component: {fileID: 8336581975179566397}
+  - component: {fileID: 905930455}
   m_Layer: 0
-  m_Name: Brick (16)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765183852306803
 Transform:
@@ -2297,7 +2301,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1899555709
+--- !u!114 &8336581975179566397
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2306,11 +2310,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765183852306802}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &905930455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051765183852306802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &1051765183859257012
 GameObject:
   m_ObjectHideFlags: 0
@@ -2324,13 +2339,14 @@ GameObject:
   - component: {fileID: 1051765183859257008}
   - component: {fileID: 1051765183859257011}
   - component: {fileID: 1051765183859257010}
-  - component: {fileID: 1245549541}
+  - component: {fileID: 2739402448865300638}
+  - component: {fileID: 333728437}
   m_Layer: 0
-  m_Name: Brick (21)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765183859257013
 Transform:
@@ -2426,7 +2442,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1245549541
+--- !u!114 &2739402448865300638
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2435,11 +2451,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765183859257012}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &333728437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051765183859257012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &1051765183894643108
 GameObject:
   m_ObjectHideFlags: 0
@@ -2454,7 +2481,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765183894643109
 Transform:
@@ -2468,7 +2495,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1051765183468515221}
+  - {fileID: 2166963176602898999}
   - {fileID: 1051765183832725025}
   - {fileID: 1051765184273931163}
   - {fileID: 1051765184199993520}
@@ -2510,13 +2537,14 @@ GameObject:
   - component: {fileID: 1051765184119812428}
   - component: {fileID: 1051765184119812431}
   - component: {fileID: 1051765184119812430}
-  - component: {fileID: 1512007443}
+  - component: {fileID: 8761610309881220929}
+  - component: {fileID: 1036074757}
   m_Layer: 0
-  m_Name: Brick (24)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765184119812417
 Transform:
@@ -2612,7 +2640,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1512007443
+--- !u!114 &8761610309881220929
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2621,11 +2649,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765184119812416}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &1036074757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051765184119812416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &1051765184173465703
 GameObject:
   m_ObjectHideFlags: 0
@@ -2639,13 +2678,14 @@ GameObject:
   - component: {fileID: 1051765184173465699}
   - component: {fileID: 1051765184173465698}
   - component: {fileID: 1051765184173465701}
-  - component: {fileID: 1807463072}
+  - component: {fileID: 4078217262174222205}
+  - component: {fileID: 669425897}
   m_Layer: 0
-  m_Name: Brick (20)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765184173465700
 Transform:
@@ -2741,7 +2781,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1807463072
+--- !u!114 &4078217262174222205
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2750,11 +2790,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765184173465703}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &669425897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051765184173465703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &1051765184177182080
 GameObject:
   m_ObjectHideFlags: 0
@@ -2768,13 +2819,14 @@ GameObject:
   - component: {fileID: 1051765184177182092}
   - component: {fileID: 1051765184177182095}
   - component: {fileID: 1051765184177182094}
-  - component: {fileID: 1738040539}
+  - component: {fileID: 4637893079719138846}
+  - component: {fileID: 334489104}
   m_Layer: 0
-  m_Name: Brick (6)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765184177182081
 Transform:
@@ -2870,7 +2922,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1738040539
+--- !u!114 &4637893079719138846
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2879,11 +2931,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765184177182080}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &334489104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051765184177182080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &1051765184199993523
 GameObject:
   m_ObjectHideFlags: 0
@@ -2897,13 +2960,14 @@ GameObject:
   - component: {fileID: 1051765184199993535}
   - component: {fileID: 1051765184199993534}
   - component: {fileID: 1051765184199993521}
-  - component: {fileID: 587045054}
+  - component: {fileID: 2910786246129216808}
+  - component: {fileID: 74322963}
   m_Layer: 0
-  m_Name: Brick (5)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765184199993520
 Transform:
@@ -2999,7 +3063,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &587045054
+--- !u!114 &2910786246129216808
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3008,11 +3072,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765184199993523}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &74322963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051765184199993523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &1051765184216765536
 GameObject:
   m_ObjectHideFlags: 0
@@ -3026,13 +3101,14 @@ GameObject:
   - component: {fileID: 1051765184216765548}
   - component: {fileID: 1051765184216765551}
   - component: {fileID: 1051765184216765550}
-  - component: {fileID: 1813895907}
+  - component: {fileID: 6912827809220778442}
+  - component: {fileID: 1272821027}
   m_Layer: 0
-  m_Name: Brick (10)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765184216765537
 Transform:
@@ -3128,7 +3204,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1813895907
+--- !u!114 &6912827809220778442
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3137,11 +3213,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765184216765536}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &1272821027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051765184216765536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &1051765184273931162
 GameObject:
   m_ObjectHideFlags: 0
@@ -3155,13 +3242,14 @@ GameObject:
   - component: {fileID: 1051765184273931142}
   - component: {fileID: 1051765184273931161}
   - component: {fileID: 1051765184273931160}
-  - component: {fileID: 1879529880}
+  - component: {fileID: 4334910903124129015}
+  - component: {fileID: 497615644}
   m_Layer: 0
-  m_Name: Brick (4)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765184273931163
 Transform:
@@ -3257,7 +3345,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1879529880
+--- !u!114 &4334910903124129015
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3266,11 +3354,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765184273931162}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &497615644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051765184273931162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &1051765184419097439
 GameObject:
   m_ObjectHideFlags: 0
@@ -3284,13 +3383,14 @@ GameObject:
   - component: {fileID: 1051765184419097435}
   - component: {fileID: 1051765184419097434}
   - component: {fileID: 1051765184419097437}
-  - component: {fileID: 1521616001}
+  - component: {fileID: 8891962135747726749}
+  - component: {fileID: 874135814}
   m_Layer: 0
-  m_Name: Brick (25)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765184419097436
 Transform:
@@ -3386,7 +3486,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1521616001
+--- !u!114 &8891962135747726749
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3395,11 +3495,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765184419097439}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &874135814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051765184419097439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &1051765184492358677
 GameObject:
   m_ObjectHideFlags: 0
@@ -3413,13 +3524,14 @@ GameObject:
   - component: {fileID: 1051765184492358673}
   - component: {fileID: 1051765184492358672}
   - component: {fileID: 1051765184492358675}
-  - component: {fileID: 1629780737}
+  - component: {fileID: 7793324943548969586}
+  - component: {fileID: 378317373}
   m_Layer: 0
-  m_Name: Brick (18)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765184492358674
 Transform:
@@ -3515,7 +3627,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1629780737
+--- !u!114 &7793324943548969586
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3524,11 +3636,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765184492358677}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &378317373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051765184492358677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &1051765184691716345
 GameObject:
   m_ObjectHideFlags: 0
@@ -3542,13 +3665,14 @@ GameObject:
   - component: {fileID: 1051765184691716325}
   - component: {fileID: 1051765184691716324}
   - component: {fileID: 1051765184691716327}
-  - component: {fileID: 312594646}
+  - component: {fileID: 8292359037542759192}
+  - component: {fileID: 8232283}
   m_Layer: 0
-  m_Name: Brick (13)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765184691716326
 Transform:
@@ -3644,7 +3768,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &312594646
+--- !u!114 &8292359037542759192
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3653,11 +3777,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1051765184691716345}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &8232283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051765184691716345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &1051765184793434376
 GameObject:
   m_ObjectHideFlags: 0
@@ -3675,7 +3810,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765184793434420
 Transform:
@@ -3765,11 +3900,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1051765184838104640}
   m_Layer: 0
-  m_Name: Stair Entrance 1
+  m_Name: Stair Exit 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1051765184838104640
 Transform:
@@ -3779,7 +3914,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1051765184838104643}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.4}
+  m_LocalPosition: {x: 0, y: 9.937, z: 18.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3799,13 +3934,14 @@ GameObject:
   - component: {fileID: 3244965189190981618}
   - component: {fileID: 5420057219477502511}
   - component: {fileID: 7146157537671891195}
-  - component: {fileID: 2060333230}
+  - component: {fileID: 3122015791472821822}
+  - component: {fileID: 55213795}
   m_Layer: 0
-  m_Name: Brick (26)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8309058517235847089
 Transform:
@@ -3901,7 +4037,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2060333230
+--- !u!114 &3122015791472821822
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3910,11 +4046,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 3286150395130850312}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 1
+--- !u!114 &55213795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3286150395130850312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &4142814675574305131
 GameObject:
   m_ObjectHideFlags: 0
@@ -3928,13 +4075,14 @@ GameObject:
   - component: {fileID: 6900590740490398439}
   - component: {fileID: 6690284143734757659}
   - component: {fileID: 2894170726740574081}
-  - component: {fileID: 611639974}
+  - component: {fileID: 7740712245671086568}
+  - component: {fileID: 1325052532}
   m_Layer: 0
-  m_Name: Brick (12)
+  m_Name: Stair
   m_TagString: Stair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8804094253693244195
 Transform:
@@ -4030,7 +4178,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &611639974
+--- !u!114 &7740712245671086568
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4039,11 +4187,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 4142814675574305131}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a392a8ecf3b3cc148bff922d1f504a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 1538771879}
-  IsLastStair: 0
+--- !u!114 &1325052532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4142814675574305131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3
 --- !u!1 &4540054936052775330
 GameObject:
   m_ObjectHideFlags: 0
@@ -4058,7 +4217,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1459895462335681599
 Transform:
@@ -4079,3 +4238,144 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7482180876257462118
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2166963176602898999}
+  - component: {fileID: 8762875477830820787}
+  - component: {fileID: 5278787173261079234}
+  - component: {fileID: 7297646707573886948}
+  - component: {fileID: 5476751019023184936}
+  - component: {fileID: 3650772209163689701}
+  - component: {fileID: 458565198}
+  m_Layer: 0
+  m_Name: Stair
+  m_TagString: Stair
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &2166963176602898999
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7482180876257462118}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.15000004, z: 0}
+  m_LocalScale: {x: 2.5, y: 0.4, z: 0.6}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1051765183894643109}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8762875477830820787
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7482180876257462118}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &5278787173261079234
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7482180876257462118}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: bb2c3e35964576c46b74ee56f515b7b3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7297646707573886948
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7482180876257462118}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &5476751019023184936
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7482180876257462118}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &3650772209163689701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7482180876257462118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb539d1a3a905e4eb3911d02482e51e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &458565198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7482180876257462118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49edfb7e39d05e46bbfb6b5c066f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorType: 3

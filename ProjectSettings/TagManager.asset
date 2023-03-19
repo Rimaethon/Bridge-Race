@@ -8,6 +8,8 @@ TagManager:
   - Brick
   - Rig
   - Brick Pooler
+  - Character
+  - Ground
   layers:
   - Default
   - TransparentFX

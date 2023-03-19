@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -6,45 +7,60 @@ using UnityEngine.Serialization;
 
 public class ObjectPooler : MonoBehaviour
 {
-
-    public GameObject[] brickPrefabs;
     [SerializeField] private int poolSize = 20;
-    private List<GameObject>[] _brickPools;
+    [SerializeField] private GameObject brickPrefab;
     private GameObject _brick;
-
-
-
+    private GameObject[] characterObjects;
     
-    void Awake()
+    
+
+    private void Awake()
     {
-        _brickPools = new List<GameObject>[brickPrefabs.Length];
-        for (int i = 0; i < brickPrefabs.Length; i++)
+        
+        
+    }
+
+
+    void Start()
+    {
+        List<TypeDeterminer.ColorEnum> 
+        foreach (TypeDeterminer.ColorEnum ColorType in GameDataHolder.CharactersInScene.Values)
         {
-            _brickPools[i] = new List<GameObject>();
+            if (!GameDataHolder.BrickPools.ContainsKey(ColorType))
+            {
+                GameDataHolder.BrickPools[ColorType] = new List<GameObject>();
+            }
             for (int j = 0; j < poolSize; j++)
             {
-                _brick = Instantiate(brickPrefabs[i]);
+                _brick = Instantiate(brickPrefab,gameObject.transform);
                 _brick.SetActive(false);
-                _brickPools[i].Add(_brick);
+                GameDataHolder.BrickPools[ColorType].Add(_brick);
             }
-            
         }
+            
+            
+        
 
     }
     
     
 
-    public GameObject GetEnemyFromPool(int brickType)
+    /*public GameObject GetEnemyFromPool(int brickType)
     {
+        if (_brickPools[brickType] == null)
+        {
+            Debug.LogError("Brick pool is null for type " + brickType);
+            return null;
+        }
+
         for (int i = 0; i < _brickPools[brickType].Count; i++)
         {
             if (!_brickPools[brickType][i].activeInHierarchy)
             {
-                
                 return _brickPools[brickType][i];
             }
         }
-        
+    
         if (_brickPools[brickType].Count < poolSize)
         {
             _brick = Instantiate(brickPrefabs[brickType]);
@@ -52,12 +68,16 @@ public class ObjectPooler : MonoBehaviour
             _brickPools[brickType].Add(_brick);
             return _brick;
         }
-    
+
         return null;
     }
+
 
     public void ReturnEnemyPool(GameObject brick)
     {
         brick.SetActive(false);
-    }
+    }*/
+    
+    
+    
 }

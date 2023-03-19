@@ -9,7 +9,6 @@ public class StairManager : MonoBehaviour
     private ObjectPooler _objectPooler;
     private int _stairID=99;
     private Material _playerBrickMaterial;
-    private Character _character;
     private Material _stairMaterial;
     [SerializeField] private GameObject door;
     [SerializeField] private bool IsLastStair;
@@ -21,12 +20,11 @@ public class StairManager : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             _brickStacker = other.gameObject.GetComponent<BrickStacker>();
-            _character = other.gameObject.GetComponent<Character>();
             _stairMaterial = gameObject.GetComponent<MeshRenderer>().material;
             if (_stairID != _character.CharacterID && _brickStacker._brickCount > 0)
             {
@@ -55,12 +53,12 @@ public class StairManager : MonoBehaviour
             
             
             
-        }
+        }*/
 
         
     }
 
-    private void ChangeMaterial(Material brickMaterial)
+    /*private void ChangeMaterial(Material brickMaterial)
     {
         
         
@@ -68,9 +66,10 @@ public class StairManager : MonoBehaviour
         gameObject.GetComponent<MeshRenderer>().enabled = true;
         GameObject brickToRemove = _brickStacker.bricksOnPlayer[_brickStacker._brickCount - 1];
         brickToRemove.transform.parent = null;
+        brickToRemove.GetComponent<BoxCollider>().enabled = true;
         _objectPooler.ReturnEnemyPool(brickToRemove);
         _brickStacker.bricksOnPlayer.RemoveAt(_brickStacker._brickCount - 1);
         _brickStacker._brickCount--;
-    }
+    }*/
     
-}
+
