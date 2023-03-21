@@ -1,3 +1,4 @@
+/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,7 +54,7 @@ public class StairManager : MonoBehaviour
             
             
             
-        }*/
+        }#1#
 
         
     }
@@ -70,6 +71,7 @@ public class StairManager : MonoBehaviour
         _objectPooler.ReturnEnemyPool(brickToRemove);
         _brickStacker.bricksOnPlayer.RemoveAt(_brickStacker._brickCount - 1);
         _brickStacker._brickCount--;
-    }*/
+    }#1#
+    */
     
 

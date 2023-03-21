@@ -1,3 +1,4 @@
+/*
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ public class ObjectPooler : MonoBehaviour
 
     void Start()
     {
-        List<TypeDeterminer.ColorEnum> 
+ 
         foreach (TypeDeterminer.ColorEnum ColorType in GameDataHolder.CharactersInScene.Values)
         {
             if (!GameDataHolder.BrickPools.ContainsKey(ColorType))
@@ -76,8 +77,9 @@ public class ObjectPooler : MonoBehaviour
     public void ReturnEnemyPool(GameObject brick)
     {
         brick.SetActive(false);
-    }*/
+    }#1#
     
     
     
 }
+*/
