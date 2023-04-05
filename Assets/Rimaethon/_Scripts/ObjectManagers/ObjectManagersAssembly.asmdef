@@ -1,0 +1,18 @@
+{
+    "name": "ObjectManagersAssembly",
+    "rootNamespace": "",
+    "references": [
+        "GUID:4fa2f72e96e23f147a46fc2fa89c0266",
+        "GUID:1e3eb9f14d4f4b4499f7b5f8695a77e0",
+        "GUID:d525ad6bd40672747bde77962f1c401e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

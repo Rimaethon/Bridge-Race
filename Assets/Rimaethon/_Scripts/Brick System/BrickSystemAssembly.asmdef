@@ -1,0 +1,17 @@
+{
+    "name": "BrickSystemAssembly",
+    "rootNamespace": "",
+    "references": [
+        "GUID:4fa2f72e96e23f147a46fc2fa89c0266",
+        "GUID:af4ed838c81791c4aa5f3471237cf7c2"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
