@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
+using Rimaethon._Scripts.Core.Enums;
+using Rimaethon._Scripts.Core.Interfaces;
 using Rimaethon._Scripts.Managers;
 using UnityEngine;
 
@@ -8,24 +10,24 @@ namespace Rimaethon._Scripts.Core
 {
     public  class SceneDataHolder : MonoBehaviour
     {
-        private static Dictionary<IPlatformAble.PlatformStates, List<ITypeDeterminer.ColorEnum>> _characterTypesOnLevels =
-            new Dictionary<IPlatformAble.PlatformStates, List<ITypeDeterminer.ColorEnum>>();
+        private static Dictionary<PlatformStates, List<ColorEnum>> _characterTypesOnLevels =
+            new Dictionary<PlatformStates, List<ColorEnum>>();
 
-        public static Dictionary<BrickStatus.PooledBrickStatus, Dictionary<ITypeDeterminer.ColorEnum, List<GameObject>>> PooledBrickDictionary =
-            new Dictionary<BrickStatus.PooledBrickStatus, Dictionary<ITypeDeterminer.ColorEnum, List<GameObject>>>()
+        public static Dictionary<BrickStatus.PooledBrickStatus, Dictionary<ColorEnum, List<GameObject>>> PooledBrickDictionary =
+            new Dictionary<BrickStatus.PooledBrickStatus, Dictionary<ColorEnum, List<GameObject>>>()
             {
-                { BrickStatus.PooledBrickStatus.Active, new Dictionary<ITypeDeterminer.ColorEnum, List<GameObject>>() },
-                { BrickStatus.PooledBrickStatus.NotActive, new Dictionary<ITypeDeterminer.ColorEnum, List<GameObject>>() }
+                { BrickStatus.PooledBrickStatus.Active, new Dictionary<ColorEnum, List<GameObject>>() },
+                { BrickStatus.PooledBrickStatus.NotActive, new Dictionary<ColorEnum, List<GameObject>>() }
             };
         private static bool _characterTypesInitialized = false;
 
-       private static SerializedDictionary<IPlatformAble.PlatformStates, List<GameObject>> _doorsOnPlatforms =
-            new SerializedDictionary<IPlatformAble.PlatformStates, List<GameObject>>();
+       private static SerializedDictionary<PlatformStates, List<GameObject>> _doorsOnPlatforms =
+            new SerializedDictionary<PlatformStates, List<GameObject>>();
        
 
-       public static SerializedDictionary<IPlatformAble.PlatformStates, List<GameObject>> DoorsOnPlatforms => _doorsOnPlatforms;
+       public static SerializedDictionary<PlatformStates, List<GameObject>> DoorsOnPlatforms => _doorsOnPlatforms;
 
-        public static Dictionary<IPlatformAble.PlatformStates, List<ITypeDeterminer.ColorEnum>> CharactersTypesOnLevels
+        public static Dictionary<PlatformStates, List<ColorEnum>> CharactersTypesOnLevels
         {
             get
             {
@@ -48,12 +50,12 @@ namespace Rimaethon._Scripts.Core
 
                 if (characterScript != null)
                 {
-                    ITypeDeterminer.ColorEnum characterColor = characterScript.ColorType;
-                    IPlatformAble.PlatformStates platformState = characterScript.PlatformState;
+                    ColorEnum characterColor = characterScript.ColorType;
+                    PlatformStates platformState = characterScript.PlatformState;
 
                     if (!_characterTypesOnLevels.ContainsKey(platformState))
                     {
-                        _characterTypesOnLevels.Add(platformState, new List<ITypeDeterminer.ColorEnum>());
+                        _characterTypesOnLevels.Add(platformState, new List<ColorEnum>());
                     }
 
                     _characterTypesOnLevels[platformState].Add(characterColor);
@@ -65,13 +67,13 @@ namespace Rimaethon._Scripts.Core
             _characterTypesInitialized = true;
         }
         
-        public static void SetPlatform(Character character, IPlatformAble.PlatformStates platformState)
+        public static void SetPlatform(Character character, PlatformStates platformState)
         {
             // Get the existing platform of the character
-            IPlatformAble.PlatformStates existingPlatformState = character.PlatformState;
+            PlatformStates existingPlatformState = character.PlatformState;
 
             // Get the color of the character
-            ITypeDeterminer.ColorEnum color = character.ColorType;
+            ColorEnum color = character.ColorType;
 
             // Remove the character from the existing platform's dictionary
             if (_characterTypesOnLevels.ContainsKey(existingPlatformState))

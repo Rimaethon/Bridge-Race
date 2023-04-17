@@ -1,24 +1,27 @@
 using System.Collections.Generic;
 using Rimaethon._Scripts.Core;
+using Rimaethon._Scripts.Core.Enums;
+using Rimaethon._Scripts.Core.Interfaces;
 using Rimaethon._Scripts.ObjectManagers;
 using UnityEngine;
 
 namespace Rimaethon._Scripts.Brick_System
 {
-    public class BrickStacker : MonoBehaviour
+    public class BrickStacker : MonoBehaviour,IBrickCountProvider
     {
         #region Fields
 
-        private ITypeDeterminer.ColorEnum _characterColor;
+        private ColorEnum _characterColor;
         private int _brickCount;
         private GameObject _brickHolder;
         private List<GameObject> _bricksOnCharacter;
         private GameObject _collidedStair;
         private MpbController _stairsMpbController;
         private IObjectPool _objectPool;
+        public int BrickCount => _brickCount;
 
         #endregion
-
+        
         #region Unity Methods
 
         private void Start()
@@ -58,6 +61,7 @@ namespace Rimaethon._Scripts.Brick_System
                 brick.transform.position = _brickHolder.transform.position + new Vector3(0, 0.105f * _bricksOnCharacter.Count, 0);
                 brick.transform.parent = _brickHolder.transform;
                 brick.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                _brickCount++;
                 brick.GetComponent<Collider>().enabled = false;
                 _bricksOnCharacter.Add(brick);
                 
@@ -86,11 +90,14 @@ namespace Rimaethon._Scripts.Brick_System
                 lastBrick.transform.parent = null;
                 _objectPool.ReturnBrickToPool(lastBrick);
                 _bricksOnCharacter.RemoveAt(_bricksOnCharacter.Count - 1);
+                _brickCount--;
             }
 
            
         }
 
         #endregion
+
+        
     }
 }

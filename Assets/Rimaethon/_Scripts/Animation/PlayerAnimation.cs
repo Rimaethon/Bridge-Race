@@ -1,4 +1,3 @@
-using _Scripts.Core;
 using UnityEngine;
 
 namespace Rimaethon._Scripts.Animation
@@ -13,12 +12,13 @@ namespace Rimaethon._Scripts.Animation
         }
         public override void HandleAnimationRequest(int animationID, bool animationState)
         {
+            base.HandleAnimationRequest(animationID, animationState);
             if (_isWinning)
             {
                 return;
             }
             
-            base.HandleAnimationRequest(animationID, animationState);
+            
             
             // if (animationID == CharacterAnimation.IsRunning && animationState == true)
             // {

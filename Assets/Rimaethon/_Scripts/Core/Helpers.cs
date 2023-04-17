@@ -52,8 +52,13 @@ namespace Rimaethon._Scripts.Core
                throw new ArgumentException("The list cannot be null or empty.");
            }
 
-           int randomIndex = Random.Range(0, list.Count);
-           return list[randomIndex];
+           
+           return list[GiveRandomNumber(list.Count)];
+       }
+
+       public static int GiveRandomNumber(int positiveRange, int negativeRange = 0)
+       {
+           return Random.Range(negativeRange, positiveRange);
        }
 
     }

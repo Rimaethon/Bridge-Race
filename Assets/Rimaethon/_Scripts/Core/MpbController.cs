@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Rimaethon._Scripts.Core.Enums;
+using Rimaethon._Scripts.Core.Interfaces;
 using UnityEngine;
 
 namespace Rimaethon._Scripts.Core
@@ -8,11 +10,11 @@ namespace Rimaethon._Scripts.Core
         private Renderer _renderer;
         private MaterialPropertyBlock _materialPropertyBlock;
         private MaterialPropertyBlock _tryout;
-        [SerializeField] private ITypeDeterminer.ColorEnum colorType;
+        [SerializeField] private ColorEnum colorType;
         private MeshRenderer _meshRenderer;
         private int colorID;
 
-        public ITypeDeterminer.ColorEnum ColorType
+        public ColorEnum ColorType
         {
             get => colorType;
             set
@@ -22,13 +24,13 @@ namespace Rimaethon._Scripts.Core
             }
         }
 
-        public static readonly Dictionary<ITypeDeterminer.ColorEnum, Color> ColorMap =
-            new Dictionary<ITypeDeterminer.ColorEnum, Color>()
+        public static readonly Dictionary<ColorEnum, Color> ColorMap =
+            new Dictionary<ColorEnum, Color>()
             {
-                {ITypeDeterminer.ColorEnum.Red, Color.red},
-                {ITypeDeterminer.ColorEnum.Green, Color.green},
-                {ITypeDeterminer.ColorEnum.Cyan, Color.cyan},
-                {ITypeDeterminer.ColorEnum.White, Color.white},
+                {ColorEnum.Red, Color.red},
+                {ColorEnum.Green, Color.green},
+                {ColorEnum.Cyan, Color.cyan},
+                {ColorEnum.White, Color.white},
             };
 
         private void Awake()
@@ -39,7 +41,7 @@ namespace Rimaethon._Scripts.Core
             colorID = Shader.PropertyToID("_Color");
         }
 
-        public void SetObjectsColor(ITypeDeterminer.ColorEnum color)
+        public void SetObjectsColor(ColorEnum color)
         {
 
             colorType = color;

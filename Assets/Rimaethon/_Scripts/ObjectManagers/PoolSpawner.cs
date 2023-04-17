@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Rimaethon._Scripts.Core;
+using Rimaethon._Scripts.Core.Enums;
+using Rimaethon._Scripts.Core.Interfaces;
 using Rimaethon._Scripts.Managers;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -15,25 +17,25 @@ namespace Rimaethon._Scripts.ObjectManagers
         [SerializeField] private float sphereOverlapRadius = 1.0f;
         private ISceneDataHolder _sceneDataHolder;
         
-        private  List<ITypeDeterminer.ColorEnum> _availableColors = new List<ITypeDeterminer.ColorEnum>();
+        private  List<ColorEnum> _availableColors = new List<ColorEnum>();
         [SerializeField] private float spawnTimer = 0f;
-        private Dictionary<IPlatformAble.PlatformStates, List<Vector3>> _brickSpawnPointsOfPlatforms;
+        private Dictionary<PlatformStates, List<Vector3>> _brickSpawnPointsOfPlatforms;
         private ObjectPool _objectPool;
         private List<Vector3> _spawnPoints;
         private bool _isGameStart;
         private GameObject _brick;
-        private ITypeDeterminer.ColorEnum _randomColor;
+        private ColorEnum _randomColor;
         
 
         private void OnEnable()
         {
-            EventSubscriber.Subscribe<IPlatformAble.PlatformStates>(EventManager.Instance,GameStates.OnObjectsInstantiated,SpawnBricksAtPlatforms);
+            EventSubscriber.Subscribe<PlatformStates>(EventManager.Instance,GameStates.OnObjectsInstantiated,SpawnBricksAtPlatforms);
 
         }
 
         private void OnDisable()
         {
-            EventSubscriber.Unsubscribe<IPlatformAble.PlatformStates>(EventManager.Instance,GameStates.OnObjectsInstantiated,SpawnBricksAtPlatforms);
+            EventSubscriber.Unsubscribe<PlatformStates>(EventManager.Instance,GameStates.OnObjectsInstantiated,SpawnBricksAtPlatforms);
         }
 
         private void Awake()
@@ -46,11 +48,11 @@ namespace Rimaethon._Scripts.ObjectManagers
 
 
 
-        private void SpawnBricksAtPlatforms(IPlatformAble.PlatformStates platform)
+        private void SpawnBricksAtPlatforms(PlatformStates platform)
         {
-            _availableColors = SceneDataHolder.CharactersTypesOnLevels[IPlatformAble.PlatformStates.StartingPlatform];
+            _availableColors = SceneDataHolder.CharactersTypesOnLevels[PlatformStates.StartingPlatform];
             _spawnPoints = _brickSpawnPointsOfPlatforms[platform];
-            for (int i = 0; i <_spawnPoints.Count-1 ; i++)
+            for (int i = 0; i <_spawnPoints.Count-2 ; i++)
             {
                 _randomColor = Helpers.PickRandomFromList(_availableColors);
                 _brick = _objectPool.GetBrickFromPool(_randomColor);
@@ -70,12 +72,12 @@ namespace Rimaethon._Scripts.ObjectManagers
 
         void RespawnCollectedBricks()
         {
-            _brick.transform.position = AssignNewSpawnPoint(IPlatformAble.PlatformStates.StartingPlatform);
+            _brick.transform.position = AssignNewSpawnPoint(PlatformStates.StartingPlatform);
             
         }
         
         
-        private Vector3 AssignNewSpawnPoint(IPlatformAble.PlatformStates platform)
+        private Vector3 AssignNewSpawnPoint(PlatformStates platform)
         {
             _spawnPoints = _brickSpawnPointsOfPlatforms[platform];
             

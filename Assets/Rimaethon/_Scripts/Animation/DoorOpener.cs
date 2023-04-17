@@ -1,13 +1,15 @@
 using DG.Tweening;
 using Rimaethon._Scripts.Core;
+using Rimaethon._Scripts.Core.Interfaces;
+using Rimaethon._Scripts.Managers;
 using UnityEngine;
 
 namespace Rimaethon._Scripts.Animation
 {
     public class DoorOpener : MonoBehaviour,IPlatformAble
     {
-        [SerializeField] private IPlatformAble.PlatformStates platformStates;
-        public IPlatformAble.PlatformStates PlatformState => platformStates;
+        [SerializeField] private PlatformStates platformStates;
+        public PlatformStates PlatformState => platformStates;
         private Transform _leftDoorTransform;
         private Transform _rightDoorTransform;
         private void Start()

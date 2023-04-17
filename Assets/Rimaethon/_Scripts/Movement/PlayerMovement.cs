@@ -1,5 +1,5 @@
-using _Scripts.Core;
 using Rimaethon._Scripts.Animation;
+using Rimaethon._Scripts.Core;
 using Rimaethon.Movement;
 using UnityEngine;
 
@@ -9,7 +9,7 @@ namespace Rimaethon._Scripts.Movement
     {
         private CharacterController _characterController;
         [SerializeField] private float characterSpeed = 6f;
-        private PlayerAnimation _playerAnimation;
+        private IAnimateAble _playerAnimation;
 
         
 
@@ -17,7 +17,7 @@ namespace Rimaethon._Scripts.Movement
         {
             _characterController = GetComponent<CharacterController>();
             
-            _playerAnimation = GetComponent<PlayerAnimation>();
+            _playerAnimation = GetComponent<IAnimateAble>();
             CustomAwake();
         }
 

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Rimaethon._Scripts.Core;
+using Rimaethon._Scripts.Core.Enums;
+using Rimaethon._Scripts.Core.Interfaces;
 using Rimaethon._Scripts.Managers;
 using UnityEngine;
 
@@ -12,8 +14,8 @@ namespace Rimaethon._Scripts.ObjectManagers
         
         [SerializeField] private int poolSize = 20;
         [SerializeField] private GameObject brickPrefab;
-        private List<ITypeDeterminer.ColorEnum> _brickTypeList;
-        private IPlatformAble.PlatformStates _platformStates;
+        private List<ColorEnum> _brickTypeList;
+        private PlatformStates _platformStates;
 
         private void OnEnable()
         {
@@ -24,16 +26,16 @@ namespace Rimaethon._Scripts.ObjectManagers
         {
 
             InstantiateObjects(poolSize);
-            _platformStates = IPlatformAble.PlatformStates.StartingPlatform;
+            _platformStates = PlatformStates.StartingPlatform;
         }
         
 
         private void InstantiateObjects(int objectPoolSize)
         {
             
-            _brickTypeList =SceneDataHolder.CharactersTypesOnLevels[IPlatformAble.PlatformStates.StartingPlatform];
+            _brickTypeList =SceneDataHolder.CharactersTypesOnLevels[PlatformStates.StartingPlatform];
 
-            foreach (ITypeDeterminer.ColorEnum color in _brickTypeList)
+            foreach (ColorEnum color in _brickTypeList)
             {
                 for (int i = 0; i < objectPoolSize; i++)
                 {
@@ -45,13 +47,13 @@ namespace Rimaethon._Scripts.ObjectManagers
                 }
             }
             Debug.Log("yes ı finished instantiation but ı dont broadcast fucker");
-            EventBroadcaster.Broadcast<IPlatformAble.PlatformStates>(EventManager.Instance,GameStates.OnObjectsInstantiated,IPlatformAble.PlatformStates.StartingPlatform);
+            EventBroadcaster.Broadcast<PlatformStates>(EventManager.Instance,GameStates.OnObjectsInstantiated,PlatformStates.StartingPlatform);
             
         }
 
         
 
-        public GameObject GetBrickFromPool(ITypeDeterminer.ColorEnum colorType)
+        public GameObject GetBrickFromPool(ColorEnum colorType)
         {
             if (SceneDataHolder.PooledBrickDictionary[BrickStatus.PooledBrickStatus.NotActive][colorType].Count == 0)
             {
@@ -69,11 +71,11 @@ namespace Rimaethon._Scripts.ObjectManagers
         public void ReturnBrickToPool(GameObject brick)
         {
             brick.SetActive(false);
-            ITypeDeterminer.ColorEnum color = brick.GetComponent<MpbController>().ColorType;
+            ColorEnum color = brick.GetComponent<MpbController>().ColorType;
             AddToPooledBricks(color, brick, BrickStatus.PooledBrickStatus.NotActive);
         }
         
-        public void AddToPooledBricks(ITypeDeterminer.ColorEnum color, GameObject brick, BrickStatus.PooledBrickStatus brickStatus)
+        public void AddToPooledBricks(ColorEnum color, GameObject brick, BrickStatus.PooledBrickStatus brickStatus)
         {
             if (!SceneDataHolder.PooledBrickDictionary[brickStatus].ContainsKey(color))
             {
@@ -84,7 +86,7 @@ namespace Rimaethon._Scripts.ObjectManagers
             SceneDataHolder.PooledBrickDictionary[brickStatus][color].Add(brick);
         }
 
-        public void RemoveFromPooledBricks(ITypeDeterminer.ColorEnum color, GameObject brick,
+        public void RemoveFromPooledBricks(ColorEnum color, GameObject brick,
             BrickStatus.PooledBrickStatus brickStatus)
         {
             if (!SceneDataHolder.PooledBrickDictionary[brickStatus].ContainsKey(color))

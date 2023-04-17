@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.IO;
 using AYellowpaper.SerializedCollections;
 using Rimaethon._Scripts.Core;
+using Rimaethon._Scripts.Core.Interfaces;
+using Rimaethon._Scripts.Managers;
 using UnityEngine;
 
 namespace Rimaethon._Scripts.ObjectManagers
@@ -9,14 +11,14 @@ namespace Rimaethon._Scripts.ObjectManagers
     public class TextFilePositionExtractor : MonoBehaviour
     {
         [SerializedDictionary("The Platform Name", "Text File Of Spawn Points")]
-        public SerializedDictionary<IPlatformAble.PlatformStates, TextAsset> spawnPointsTextFiles;
+        public SerializedDictionary<PlatformStates, TextAsset> spawnPointsTextFiles;
     
 
-        public Dictionary<IPlatformAble.PlatformStates, List<Vector3>> GetBrickSpawnPoints()
+        public Dictionary<PlatformStates, List<Vector3>> GetBrickSpawnPoints()
         {
-            Dictionary<IPlatformAble.PlatformStates, List<Vector3>> brickSpawnPoints = new Dictionary<IPlatformAble.PlatformStates, List<Vector3>>();
+            Dictionary<PlatformStates, List<Vector3>> brickSpawnPoints = new Dictionary<PlatformStates, List<Vector3>>();
     
-            foreach (KeyValuePair<IPlatformAble.PlatformStates, TextAsset> pair in spawnPointsTextFiles)
+            foreach (KeyValuePair<PlatformStates, TextAsset> pair in spawnPointsTextFiles)
             {
                 List<Vector3> positions = new List<Vector3>();
                 string textData = pair.Value.text;

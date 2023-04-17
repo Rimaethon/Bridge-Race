@@ -1,7 +1,7 @@
-using System;
+using Rimaethon._Scripts.Core;
 using UnityEngine;
 
-namespace _Scripts.Core
+namespace Rimaethon._Scripts.Animation
 {
     public class CharacterAnimation : MonoBehaviour,IAnimateAble
     {
