@@ -15,94 +15,112 @@ namespace Rimaethon._Scripts.ObjectManagers
         private int _brickCountPerColor;
         [SerializeField] private float spawnInterval = 0.3f;
         [SerializeField] private float sphereOverlapRadius = 1.0f;
-        private ISceneDataHolder _sceneDataHolder;
         
-        private  List<ColorEnum> _availableColors = new List<ColorEnum>();
+        private  List<ColorEnum> _ColorsInPlatform = new List<ColorEnum>();
+        private  List<ColorEnum> _ColorsInGame = new List<ColorEnum>();
         [SerializeField] private float spawnTimer = 0f;
-        private Dictionary<PlatformStates, List<Vector3>> _brickSpawnPointsOfPlatforms;
         private ObjectPool _objectPool;
-        private List<Vector3> _spawnPoints;
+        [SerializeField] private List<Vector3> _spawnPoints;
         private bool _isGameStart;
         private GameObject _brick;
         private ColorEnum _randomColor;
-        
+        private int tryCount;
+        Vector3 newSpawnPoint;
+        [SerializeField]private int spawnedBrickCount;
 
         private void OnEnable()
         {
-            EventSubscriber.Subscribe<PlatformStates>(EventManager.Instance,GameStates.OnObjectsInstantiated,SpawnBricksAtPlatforms);
+            EventManager.Instance.AddHandler<PlatformStates>(GameStates.OnObjectsInstantiated,SpawnBricksAtPlatforms);
 
         }
 
         private void OnDisable()
         {
-            EventSubscriber.Unsubscribe<PlatformStates>(EventManager.Instance,GameStates.OnObjectsInstantiated,SpawnBricksAtPlatforms);
+
+            EventManager.Instance.RemoveHandler<PlatformStates>(GameStates.OnObjectsInstantiated,SpawnBricksAtPlatforms);
+            
         }
 
         private void Awake()
         {
 
-            _brickSpawnPointsOfPlatforms = GetComponent<TextFilePositionExtractor>().GetBrickSpawnPoints();
             _objectPool = GetComponent<ObjectPool>();
+            _ColorsInGame=SceneDataHolder.CharactersTypesOnLevels[PlatformStates.StartingPlatform];
+
             
         }
-
+        
 
 
         private void SpawnBricksAtPlatforms(PlatformStates platform)
         {
-            _availableColors = SceneDataHolder.CharactersTypesOnLevels[PlatformStates.StartingPlatform];
-            _spawnPoints = _brickSpawnPointsOfPlatforms[platform];
-            for (int i = 0; i <_spawnPoints.Count-2 ; i++)
+            _spawnPoints = SceneDataHolder._brickSpawnPointsOfPlatforms[platform];
+            _ColorsInPlatform = SceneDataHolder.CharactersTypesOnLevels[platform];
+
+            int numBricksPerColor = Mathf.FloorToInt((float)_spawnPoints.Count / _ColorsInGame.Count);
+            int numColorsWithExtraBrick = _spawnPoints.Count % _ColorsInGame.Count;
+
+            foreach (ColorEnum color in _ColorsInPlatform)
             {
-                _randomColor = Helpers.PickRandomFromList(_availableColors);
-                _brick = _objectPool.GetBrickFromPool(_randomColor);
-                _brick.transform.position = _spawnPoints[i];
-                _brick.SetActive(true);
+                int numBricksToSpawn = numBricksPerColor;
+                if (numColorsWithExtraBrick > 0)
+                {
+                    numBricksToSpawn++;
+                    numColorsWithExtraBrick--;
+                    Debug.Log(numColorsWithExtraBrick+" bricks left");
+                }
 
+                for (int i = 0; i < numBricksToSpawn; i++)
+                {
+                    _brick = _objectPool.GetBrickFromPool(color);
+                    while (_brick==null&& tryCount<3)
+                    {
+                        _brick = _objectPool.GetBrickFromPool(color);
+                        tryCount++;
+                    }
+
+
+                    if (_brick != null)
+                    {
+                        Vector3 newSpawnPoint = AssignNewSpawnPoint(platform);
+                        _brick.transform.position = newSpawnPoint;
+                        _brick.SetActive(true);
+                        spawnedBrickCount++;
+                    }
+
+                    tryCount = 0;
+                }
             }
-            
-            
-
         }
 
 
-
-       
-
-
-        void RespawnCollectedBricks()
-        {
-            _brick.transform.position = AssignNewSpawnPoint(PlatformStates.StartingPlatform);
-            
-        }
         
         
         private Vector3 AssignNewSpawnPoint(PlatformStates platform)
         {
-            _spawnPoints = _brickSpawnPointsOfPlatforms[platform];
-            
-            
-            Vector3 newSpawnPoint = Helpers.PickRandomFromList(_spawnPoints);
 
-            Collider[] overlappingColliders = Physics.OverlapSphere(newSpawnPoint, sphereOverlapRadius);
-
-            foreach (Collider col in overlappingColliders)
+            
+           
+            if (_spawnPoints.Count != 0)
             {
-                Debug.Log(col.tag);
-                if (col.CompareTag("Brick"))
-                {
-                 
-                    newSpawnPoint = _spawnPoints[Random.Range(0, _spawnPoints.Count)];
-                    Physics.OverlapSphere(newSpawnPoint, sphereOverlapRadius);
-                    Debug.Log("I HAVE SPAWNED SİNCE THİS İS NOT USED BEFORE"+newSpawnPoint);
-                    
-                }
+                newSpawnPoint = Helpers.PickRandomFromList(_spawnPoints);
+                SceneDataHolder.spawnedBrickPositions[platform].Add(newSpawnPoint);
+                
+                _spawnPoints.Remove(newSpawnPoint);
             }
+            
 
             return newSpawnPoint;
         }
 
 
+
+
+        
+        void RespawnCollectedBricks()
+        {
+            
+        }
         
     
     }

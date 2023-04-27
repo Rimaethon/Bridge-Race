@@ -57,13 +57,14 @@ namespace Rimaethon._Scripts.Brick_System
             var brickColor = brick.GetComponent<ITypeDeterminer>().ColorType;
             if (_characterColor == brickColor)
             {
-                _objectPool.RemoveFromPooledBricks(brickColor,brick,BrickStatus.PooledBrickStatus.Active);
+               _objectPool.HandleBrickDictionary(PooledObjectStatus.OnPlayer,brick);
                 brick.transform.position = _brickHolder.transform.position + new Vector3(0, 0.105f * _bricksOnCharacter.Count, 0);
                 brick.transform.parent = _brickHolder.transform;
                 brick.transform.localRotation = Quaternion.Euler(0, 0, 0);
                 _brickCount++;
                 brick.GetComponent<Collider>().enabled = false;
                 _bricksOnCharacter.Add(brick);
+                SceneDataHolder.spawnedBrickPositions.Remove(brick.transform.position);
                 
                 
                 
@@ -77,7 +78,6 @@ namespace Rimaethon._Scripts.Brick_System
             
             if (_bricksOnCharacter.Count == 0 && _characterColor != stairColor)
             {
-                Debug.Log("since"+_characterColor+" is not equal to  "+stairColor);
                 gameObject.GetComponent<CharacterController>().stepOffset = 0.15f;
                 return;
             }
@@ -86,7 +86,7 @@ namespace Rimaethon._Scripts.Brick_System
             {
                 _stairsMpbController.SetObjectsColor(_characterColor);
                 stair.GetComponent<MeshRenderer>().enabled = true;
-                var lastBrick = _bricksOnCharacter[_bricksOnCharacter.Count - 1];
+                var lastBrick = _bricksOnCharacter[^1];
                 lastBrick.transform.parent = null;
                 _objectPool.ReturnBrickToPool(lastBrick);
                 _bricksOnCharacter.RemoveAt(_bricksOnCharacter.Count - 1);

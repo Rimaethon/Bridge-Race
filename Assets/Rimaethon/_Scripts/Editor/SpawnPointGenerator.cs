@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -71,18 +72,24 @@ namespace Rimaethon._Scripts.Helpers
         void WritePositionsToTextFile()
         {
             string fileName = spawnPointObject.name;
-            string filePath = "Assets/!/GameData/" + fileName + "SpawnPoints.txt";
+            string filePath = "Assets/Rimaethon/GameData" + fileName + "SpawnPoints.txt";
+
+            List<Vector3> positionsToRemove = new List<Vector3>();
 
             using (StreamWriter writer = new StreamWriter(filePath))
             {
                 foreach (Vector3 position in _positions)
                 {
-                    writer.WriteLine(position.x + "/" + _spawnYPoint+ "/" + position.z);
-                    _positions.Remove(position);
+                    writer.WriteLine(position.x.ToString("0.0", CultureInfo.InvariantCulture) + "/" + _spawnYPoint.ToString("0.0", CultureInfo.InvariantCulture) + "/" + position.z.ToString("0.0", CultureInfo.InvariantCulture));
+                    positionsToRemove.Add(position);
+                }
+
+                foreach (Vector3 positionToRemove in positionsToRemove)
+                {
+                    _positions.Remove(positionToRemove);
                 }
             }
         }
-
     }
 
     [CustomEditor(typeof(SpawnPointGenerator))]

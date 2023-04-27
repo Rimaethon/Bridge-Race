@@ -9,7 +9,6 @@ namespace Rimaethon._Scripts.Core.Interfaces
         public void ReturnBrickToPool(GameObject brick);
         public GameObject GetBrickFromPool(ColorEnum colorType);
 
-        public void RemoveFromPooledBricks(ColorEnum color, GameObject brick,
-            BrickStatus.PooledBrickStatus brickStatus);
+        public void HandleBrickDictionary(PooledObjectStatus status,GameObject brick);
     }
 }

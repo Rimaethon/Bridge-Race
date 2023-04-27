@@ -12,21 +12,21 @@ namespace Rimaethon._Scripts.ObjectManagers
     {
 
         
-        [SerializeField] private int poolSize = 20;
+        private int poolSize = 40;
         [SerializeField] private GameObject brickPrefab;
         private List<ColorEnum> _brickTypeList;
-        private PlatformStates _platformStates;
+        private PlatformStates _platformState;
 
         private void OnEnable()
         {
-
+            EventManager.Instance.AddHandler<GameObject>(GameStates.OnCharacterLevelChange,HandleCharacterLevelChange);
         }
 
         private void Awake()
         {
 
             InstantiateObjects(poolSize);
-            _platformStates = PlatformStates.StartingPlatform;
+            _platformState = PlatformStates.StartingPlatform;
         }
         
 
@@ -41,13 +41,11 @@ namespace Rimaethon._Scripts.ObjectManagers
                 {
                     GameObject brickObject = Instantiate(brickPrefab);
                     brickObject.GetComponent<MpbController>().ColorType = color;
-                    brickObject.SetActive(false);
-                    Debug.Log("I created a brick with " + color + "color");
-                    AddToPooledBricks(color, brickObject, BrickStatus.PooledBrickStatus.NotActive);
+                    ReturnBrickToPool(brickObject);
                 }
             }
             Debug.Log("yes ı finished instantiation but ı dont broadcast fucker");
-            EventBroadcaster.Broadcast<PlatformStates>(EventManager.Instance,GameStates.OnObjectsInstantiated,PlatformStates.StartingPlatform);
+            EventManager.Instance.Broadcast<PlatformStates>(GameStates.OnObjectsInstantiated,PlatformStates.StartingPlatform);
             
         }
 
@@ -55,47 +53,70 @@ namespace Rimaethon._Scripts.ObjectManagers
 
         public GameObject GetBrickFromPool(ColorEnum colorType)
         {
-            if (SceneDataHolder.PooledBrickDictionary[BrickStatus.PooledBrickStatus.NotActive][colorType].Count == 0)
+            if (SceneDataHolder.PooledBrickDictionary[PooledObjectStatus.NotActive][colorType].Count == 0)
             {
                 
                 return null;
             }
 
-            GameObject pooledBrick = SceneDataHolder.PooledBrickDictionary[BrickStatus.PooledBrickStatus.NotActive][colorType][0];
-            RemoveFromPooledBricks(colorType,pooledBrick,BrickStatus.PooledBrickStatus.NotActive);
-            AddToPooledBricks(colorType, pooledBrick, BrickStatus.PooledBrickStatus.Active);
+            GameObject pooledBrick = SceneDataHolder.PooledBrickDictionary[PooledObjectStatus.NotActive][colorType][0];
+            HandleBrickDictionary(PooledObjectStatus.Active,pooledBrick);
             Debug.Log("I made"+colorType+" brick "+pooledBrick.transform.position+" in this position");
             return pooledBrick;
         }
 
         public void ReturnBrickToPool(GameObject brick)
         {
+            if (brick.GetComponent<BoxCollider>().enabled == false)
+            {
+                brick.GetComponent<BoxCollider>().enabled = true;
+            }   
             brick.SetActive(false);
-            ColorEnum color = brick.GetComponent<MpbController>().ColorType;
-            AddToPooledBricks(color, brick, BrickStatus.PooledBrickStatus.NotActive);
+            HandleBrickDictionary(PooledObjectStatus.NotActive,brick);
         }
         
-        public void AddToPooledBricks(ColorEnum color, GameObject brick, BrickStatus.PooledBrickStatus brickStatus)
-        {
-            if (!SceneDataHolder.PooledBrickDictionary[brickStatus].ContainsKey(color))
-            {
-                SceneDataHolder.PooledBrickDictionary[brickStatus].Add(color, new List<GameObject>());
-            }
-
         
-            SceneDataHolder.PooledBrickDictionary[brickStatus][color].Add(brick);
+
+     
+
+
+       public void HandleBrickDictionary(PooledObjectStatus NewStatus, GameObject brick)
+        {
+            ColorEnum color = brick.GetComponent<ITypeDeterminer>().ColorType;
+            PooledObjectStatus oldStatus = brick.GetComponent<IPoolAble>().ObjectStatus;
+            
+            if (!SceneDataHolder.PooledBrickDictionary[NewStatus].ContainsKey(color))
+            {
+                SceneDataHolder.PooledBrickDictionary[NewStatus].Add(color, new List<GameObject>());
+            }
+            
+            if (oldStatus == NewStatus)
+            {
+                SceneDataHolder.PooledBrickDictionary[NewStatus][color].Add(brick);
+            }
+            else
+            {
+                SceneDataHolder.PooledBrickDictionary[NewStatus][color].Add(brick);
+                SceneDataHolder.PooledBrickDictionary[oldStatus][color].Remove(brick);
+                brick.GetComponent<MpbController>().ObjectStatus = NewStatus;
+            }
+
         }
 
-        public void RemoveFromPooledBricks(ColorEnum color, GameObject brick,
-            BrickStatus.PooledBrickStatus brickStatus)
-        {
-            if (!SceneDataHolder.PooledBrickDictionary[brickStatus].ContainsKey(color))
-            {
-                SceneDataHolder.PooledBrickDictionary[brickStatus].Add(color, new List<GameObject>());
-            }
-            SceneDataHolder.PooledBrickDictionary[brickStatus][color].Remove(brick);
-            Debug.Log("I removed"+brick+" with " +color);
-        }
+       void HandleCharacterLevelChange(GameObject character)
+       {
+           ColorEnum characterType = character.GetComponent<ITypeDeterminer>().ColorType;
+           List<GameObject> activeBricks = SceneDataHolder.PooledBrickDictionary[PooledObjectStatus.Active][characterType];
+
+           // Create a copy of the list to avoid modifying the original list while iterating over it
+           List<GameObject> bricksToReturn = new List<GameObject>(activeBricks);
+
+           foreach (GameObject brick in bricksToReturn)
+           {
+               ReturnBrickToPool(brick);
+           }
+       }
+
     }
 }
 

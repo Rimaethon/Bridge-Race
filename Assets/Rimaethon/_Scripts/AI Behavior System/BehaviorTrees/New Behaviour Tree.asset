@@ -1,0 +1,125 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d285eb63c2cdd74180de7cfceaa96ad, type: 3}
+  m_Name: New Behaviour Tree
+  m_EditorClassIdentifier: 
+  rootNode:
+    rid: 8517659871810682889
+  nodes:
+  - rid: 8517659871810682889
+  - rid: 8517659871810682890
+  - rid: 8517659871810682891
+  - rid: 8517659871810682892
+  - rid: 8517659871810682894
+  - rid: 8517659871810682895
+  - rid: 8517659905148846081
+  treeState: 0
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+  viewPosition: {x: 467.33334, y: 93.333336, z: 0}
+  viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
+  references:
+    version: 2
+    RefIds:
+    - rid: 8517659871810682889
+      type: {class: RootNode, ns: Rimaethon._Scripts.AI_Behavior_System.Runtime, asm: AIAssembly}
+      data:
+        state: 0
+        started: 0
+        guid: 43accc7a-4c9f-4c6c-900a-fa3e9297bf3a
+        position: {x: 0, y: 0}
+        blackboard:
+          moveToPosition: {x: 0, y: 0, z: 0}
+        description: 
+        drawGizmos: 0
+        child:
+          rid: 8517659871810682890
+    - rid: 8517659871810682890
+      type: {class: Repeat, ns: Rimaethon._Scripts.AI_Behavior_System.Decorators, asm: AIAssembly}
+      data:
+        state: 0
+        started: 0
+        guid: 3e41b1d40914d4948b1a59ec2bdf9fa7
+        position: {x: -0.00003821691, y: 100.33584}
+        blackboard:
+          moveToPosition: {x: 0, y: 0, z: 0}
+        description: 
+        drawGizmos: 0
+        child:
+          rid: 8517659871810682891
+        restartOnSuccess: 1
+        restartOnFailure: 0
+    - rid: 8517659871810682891
+      type: {class: Parallel, ns: Rimaethon._Scripts.AI_Behavior_System.Composites, asm: AIAssembly}
+      data:
+        state: 0
+        started: 0
+        guid: c00642c35a0318b47981716d2971e61d
+        position: {x: -0.00015364838, y: 208.85423}
+        blackboard:
+          moveToPosition: {x: 0, y: 0, z: 0}
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 8517659871810682892
+        - rid: 8517659871810682895
+        - rid: 8517659871810682894
+        - rid: 8517659905148846081
+    - rid: 8517659871810682892
+      type: {class: GoToDoorState, ns: Rimaethon._Scripts.AI_Behavior_System, asm: AIAssembly}
+      data:
+        state: 0
+        started: 0
+        guid: bceeb653927da3247a3e61eb11e5aee2
+        position: {x: -150.00017, y: 381.33337}
+        blackboard:
+          moveToPosition: {x: 0, y: 0, z: 0}
+        description: 
+        drawGizmos: 0
+    - rid: 8517659871810682894
+      type: {class: MoveToBricks, ns: Rimaethon._Scripts.AI_Behavior_System.Actions, asm: AIAssembly}
+      data:
+        state: 0
+        started: 0
+        guid: bc44849a65e949b4e981f6d5045d8925
+        position: {x: 196.91695, y: 381.33337}
+        blackboard:
+          moveToPosition: {x: 0, y: 0, z: 0}
+        description: 
+        drawGizmos: 0
+    - rid: 8517659871810682895
+      type: {class: MoveToPosition, ns: Rimaethon._Scripts.AI_Behavior_System.Actions, asm: AIAssembly}
+      data:
+        state: 0
+        started: 0
+        guid: d718b20112c12ce4fb54edd0566b016f
+        position: {x: 21.333218, y: 381.33334}
+        blackboard:
+          moveToPosition: {x: 0, y: 0, z: 0}
+        description: 
+        drawGizmos: 0
+        speed: 5
+        stoppingDistance: 0.1
+        updateRotation: 1
+        acceleration: 40
+        tolerance: 1
+    - rid: 8517659905148846081
+      type: {class: HoverState, ns: , asm: AIAssembly}
+      data:
+        state: 0
+        started: 0
+        guid: 76dcb23c3c9799a4e8ea05bc8040d6fb
+        position: {x: 384.52, y: 395.45795}
+        blackboard:
+          moveToPosition: {x: 0, y: 0, z: 0}
+        description: 
+        drawGizmos: 1

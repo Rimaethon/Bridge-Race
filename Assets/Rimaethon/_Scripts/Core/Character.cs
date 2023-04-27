@@ -13,6 +13,10 @@ namespace Rimaethon._Scripts.Core
         public ColorEnum ColorType => colorType;
 
         [SerializeField] private PlatformStates platformStates;
-        public PlatformStates PlatformState => platformStates;
+        public PlatformStates PlatformState
+        {
+            get => platformStates;
+            set => platformStates = value;
+        }
     }
 }

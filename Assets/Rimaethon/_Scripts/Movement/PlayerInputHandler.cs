@@ -1,7 +1,6 @@
+using Rimaethon._Scripts.Core;
 using UnityEngine;
-using UnityEngine.InputSystem;
-
-namespace Movement
+namespace Rimaethon._Scripts.Movement
 {
     public abstract class PlayerInputHandler : MonoBehaviour
     {
@@ -43,7 +42,6 @@ namespace Movement
 
         protected void HandleTouchInput()
         {
-            
             IsPlayerTouchingScreen = _touchHoldAction.ReadValue<float>() > 0.1f;
 
             if (IsPlayerTouchingScreen)
@@ -51,22 +49,25 @@ namespace Movement
                 _normalizedFirstTouchPosition = NormalizeTouchPosition(_firstTouchAction.ReadValue<Vector2>());
                 _normalizedTouchDraggingPosition = NormalizeTouchPosition(_touchDraggingAction.ReadValue<Vector2>());
                 TouchDelta = _normalizedTouchDraggingPosition - _normalizedFirstTouchPosition;
-                TouchDelta.Normalize();
             }
             else
             {
                 _normalizedTouchDraggingPosition = _normalizedFirstTouchPosition;
             }
-
-
         }
-        
+
         private Vector2 NormalizeTouchPosition(Vector2 touchPosition)
         {
-            _normalizedX = (touchPosition.x / Screen.width) * 2 - 1;
-            _normalizedY = (touchPosition.y / Screen.height) * 2 - 1;
-            return new Vector2(_normalizedX, _normalizedY);
-        } 
-        
+            Ray ray = Helpers.Camera.ScreenPointToRay(touchPosition);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                Debug.DrawLine(ray.origin, hit.point, Color.green, 1f);
+                return hit.textureCoord;
+            }
+
+            Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1f);
+            return touchPosition;
+        }
+
     }
 }

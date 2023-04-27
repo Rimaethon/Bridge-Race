@@ -29,13 +29,13 @@ namespace Rimaethon._Scripts.Movement
         protected void Update()
         {
             HandleTouchInput();
-            HandleRotationWithTouchInput();
+           
             Move();
         }
 
         private void FixedUpdate()
         {
-            _characterController.Move(transform.up * -0.1f);
+            HandleRotationWithTouchInput();
         }
 
         public void Move()
@@ -47,11 +47,16 @@ namespace Rimaethon._Scripts.Movement
                 _playerAnimation.HandleAnimationRequest(CharacterAnimation.IsRunning, false);
                 return;
             }
-        
-            _characterController.Move(transform.forward * (characterSpeed * Time.deltaTime));
-        
+
+            // Calculate the custom direction vector
+            Vector3 moveDirection = (transform.forward - transform.up).normalized;
+
+            // Move the character in the custom direction
+            _characterController.Move(moveDirection * (characterSpeed * Time.deltaTime));
+
             _playerAnimation.HandleAnimationRequest(CharacterAnimation.IsRunning, true);
         }
+
     }
 
 }

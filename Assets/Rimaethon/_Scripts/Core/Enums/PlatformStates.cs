@@ -9,8 +9,25 @@ namespace Rimaethon._Scripts.Managers
         Platform1,
         Platform2,
         Platform3,
-        Platform4
+        EndingPlatform
 
+    }
+    
+    public static class PlatformStateExtensions {
+        public static PlatformStates GetNextState(this PlatformStates state) {
+            switch (state) {
+                case PlatformStates.StartingPlatform:
+                    return PlatformStates.Platform1;
+                case PlatformStates.Platform1:
+                    return PlatformStates.Platform2;
+                case PlatformStates.Platform2:
+                    return PlatformStates.Platform3;
+                case PlatformStates.Platform3:
+                    return PlatformStates.EndingPlatform;
+                default:
+                    throw new System.ArgumentOutOfRangeException(nameof(state), state, null);
+            }
+        }
     }
 }
 

@@ -14,6 +14,7 @@ namespace Rimaethon._Scripts.Core
 
         private static Camera _camera;
 
+
         public static Camera Camera
         {
             get
@@ -59,6 +60,17 @@ namespace Rimaethon._Scripts.Core
        public static int GiveRandomNumber(int positiveRange, int negativeRange = 0)
        {
            return Random.Range(negativeRange, positiveRange);
+       }
+       
+       public static void Shuffle<T>(this IList<T> list)
+       {
+           int n = list.Count;
+           while (n > 1)
+           {
+               n--;
+               int k = GiveRandomNumber(n+1);
+               (list[k], list[n]) = (list[n], list[k]);
+           }
        }
 
     }

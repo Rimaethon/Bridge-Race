@@ -1,19 +1,28 @@
 using System.Collections.Generic;
 using Rimaethon._Scripts.Core.Enums;
 using Rimaethon._Scripts.Core.Interfaces;
+using Rimaethon._Scripts.Managers;
 using UnityEngine;
 
 namespace Rimaethon._Scripts.Core
 {
-    public class MpbController : MonoBehaviour, ITypeDeterminer
+    public class MpbController : MonoBehaviour, ITypeDeterminer,IPoolAble
     {
         private Renderer _renderer;
         private MaterialPropertyBlock _materialPropertyBlock;
         private MaterialPropertyBlock _tryout;
         [SerializeField] private ColorEnum colorType;
+        [SerializeField] private PooledObjectStatus objectStatus;
+        
         private MeshRenderer _meshRenderer;
         private int colorID;
 
+
+        public PooledObjectStatus ObjectStatus
+        {
+            get =>objectStatus;
+            set => objectStatus = value;
+        } 
         public ColorEnum ColorType
         {
             get => colorType;
@@ -47,8 +56,7 @@ namespace Rimaethon._Scripts.Core
             colorType = color;
             _materialPropertyBlock.SetColor(colorID, ColorMap[color]);
             _renderer.SetPropertyBlock(_materialPropertyBlock);
-            Debug.Log("Object color set to " + color);
         }
-        
+
     }
 }
