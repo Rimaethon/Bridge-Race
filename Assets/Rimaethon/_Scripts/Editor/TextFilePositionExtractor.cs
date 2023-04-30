@@ -2,34 +2,40 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using AYellowpaper.SerializedCollections;
-using Rimaethon._Scripts.Core;
-using Rimaethon._Scripts.Core.Interfaces;
+using Rimaethon._Scripts.Core;  
 using Rimaethon._Scripts.Managers;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-namespace Rimaethon._Scripts.ObjectManagers
+namespace Rimaethon._Scripts.Editor 
 {
     public class TextFilePositionExtractor : MonoBehaviour
     {
         [SerializedDictionary("The Platform Name", "Text File Of Spawn Points")]
         public  SerializedDictionary<PlatformStates, TextAsset> spawnPointsTextFiles;
 
+        
 
-        private void Awake()
+        private void OnEnable()
         {
-            SceneDataHolder._brickSpawnPointsOfPlatforms = GetBrickSpawnPoints();
+            EventManager.Instance.AddHandler<Dictionary<PlatformStates,List<Vector3>>>(GameStates.OnBeforeGameStart, GetBrickSpawnPoints);
+
         }
 
-        public Dictionary<PlatformStates, List<Vector3>> GetBrickSpawnPoints()
+        private void OnDisable()
         {
-            Dictionary<PlatformStates, List<Vector3>> brickSpawnPoints = new Dictionary<PlatformStates, List<Vector3>>();
+            EventManager.Instance.RemoveHandler<Dictionary<PlatformStates,List<Vector3>>>(GameStates.OnBeforeGameStart, GetBrickSpawnPoints);
+
+        }
+
+
+        public void GetBrickSpawnPoints(Dictionary<PlatformStates,List<Vector3>> spawnPoints)
+        {
     
+            Debug.Log("yeah i populated the points");
             foreach (KeyValuePair<PlatformStates, TextAsset> pair in spawnPointsTextFiles)
             {
-                List<Vector3> positions = new List<Vector3>();
                 string textData = pair.Value.text;
-        
+                spawnPoints[pair.Key] = new List<Vector3>();
                 using (StringReader reader = new StringReader(textData))
                 {
                     string line;
@@ -51,14 +57,15 @@ namespace Rimaethon._Scripts.ObjectManagers
                             Debug.LogError("Error parsing coordinates in line: " + line);
                             continue;
                         }
-                        positions.Add(new Vector3(x, y, z));
+                        spawnPoints[pair.Key].Add(new Vector3(x, y, z));
                     }
                 }
 
-                brickSpawnPoints[pair.Key] = positions;
+                
             }
-
-            return brickSpawnPoints;
+            
+            GameManager.instance.UpdateGameState(GameStates.OnGameStart);
+            
         }
 
 

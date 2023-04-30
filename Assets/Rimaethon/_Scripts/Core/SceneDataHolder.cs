@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using Rimaethon._Scripts.Core.Enums;
 using Rimaethon._Scripts.Managers;
-using Rimaethon._Scripts.ObjectManagers;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace Rimaethon._Scripts.Core
@@ -21,12 +21,16 @@ namespace Rimaethon._Scripts.Core
                 { PooledObjectStatus.NotActive, new Dictionary<ColorEnum, List<GameObject>>() }
             };
         private static bool _characterTypesInitialized = false;
-        public static Dictionary<PlatformStates, List<Vector3>> spawnedBrickPositions=new Dictionary<PlatformStates, List<Vector3>>() ;
-        public static Dictionary<PlatformStates, List<Vector3>> _brickSpawnPointsOfPlatforms;
+        private static bool _spawnPointsInitialized= false;
+        
+       public static Dictionary<PlatformStates, List<Vector3>> spawnedBrickPositions=new Dictionary<PlatformStates, List<Vector3>>() ;
+
+        public static  Dictionary<PlatformStates, List<Vector3>> _spawnPoints =
+            new Dictionary<PlatformStates, List<Vector3>>();
 
 
         public static Dictionary<PlatformStates, List<GameObject>> _doorsOnPlatforms;
-        
+
         public static Dictionary<PlatformStates, List<ColorEnum>> CharactersTypesOnLevels
         {
             get
@@ -35,16 +39,12 @@ namespace Rimaethon._Scripts.Core
                 {
                     FindCharacterTypesAtStart();
                 }
-
                 return _characterTypesOnLevels;
             }
         }
+        
 
-        private void Start()
-        {
-            _brickSpawnPointsOfPlatforms = GetComponent<TextFilePositionExtractor>().GetBrickSpawnPoints();
 
-        }
 
 
         private static void FindCharacterTypesAtStart()
@@ -72,12 +72,6 @@ namespace Rimaethon._Scripts.Core
 
             _characterTypesInitialized = true;
         }
-
-
-      
-        
-        
-        
         
     }
 }

@@ -12,40 +12,47 @@ namespace Rimaethon._Scripts.ObjectManagers
     {
 
         
-        private int poolSize = 40;
         [SerializeField] private GameObject brickPrefab;
         private List<ColorEnum> _brickTypeList;
+        private int poolSize = 40;
         private PlatformStates _platformState;
 
         private void OnEnable()
         {
             EventManager.Instance.AddHandler<GameObject>(GameStates.OnCharacterLevelChange,HandleCharacterLevelChange);
+            EventManager.Instance.AddHandler(GameStates.OnGameStart,InstantiateObjects);
+        }
+
+        private void OnDisable()
+        {
+            EventManager.Instance.RemoveHandler<GameObject>(GameStates.OnCharacterLevelChange,HandleCharacterLevelChange);
+            EventManager.Instance.RemoveHandler(GameStates.OnGameStart,InstantiateObjects);
         }
 
         private void Awake()
         {
 
-            InstantiateObjects(poolSize);
             _platformState = PlatformStates.StartingPlatform;
         }
         
 
-        private void InstantiateObjects(int objectPoolSize)
+        private void InstantiateObjects()
         {
             
             _brickTypeList =SceneDataHolder.CharactersTypesOnLevels[PlatformStates.StartingPlatform];
 
             foreach (ColorEnum color in _brickTypeList)
             {
-                for (int i = 0; i < objectPoolSize; i++)
+                for (int i = 0; i < poolSize; i++)
                 {
                     GameObject brickObject = Instantiate(brickPrefab);
                     brickObject.GetComponent<MpbController>().ColorType = color;
                     ReturnBrickToPool(brickObject);
                 }
             }
+            
             Debug.Log("yes ı finished instantiation but ı dont broadcast fucker");
-            EventManager.Instance.Broadcast<PlatformStates>(GameStates.OnObjectsInstantiated,PlatformStates.StartingPlatform);
+            GameManager.instance.UpdateGameState(GameStates.OnObjectsInstantiated);
             
         }
 
@@ -61,7 +68,7 @@ namespace Rimaethon._Scripts.ObjectManagers
 
             GameObject pooledBrick = SceneDataHolder.PooledBrickDictionary[PooledObjectStatus.NotActive][colorType][0];
             HandleBrickDictionary(PooledObjectStatus.Active,pooledBrick);
-            Debug.Log("I made"+colorType+" brick "+pooledBrick.transform.position+" in this position");
+            //Debug.Log("I made"+colorType+" brick "+pooledBrick.transform.position+" in this position");
             return pooledBrick;
         }
 
@@ -71,6 +78,7 @@ namespace Rimaethon._Scripts.ObjectManagers
             {
                 brick.GetComponent<BoxCollider>().enabled = true;
             }   
+            brick.transform.rotation = Quaternion.identity;
             brick.SetActive(false);
             HandleBrickDictionary(PooledObjectStatus.NotActive,brick);
         }
@@ -84,6 +92,7 @@ namespace Rimaethon._Scripts.ObjectManagers
         {
             ColorEnum color = brick.GetComponent<ITypeDeterminer>().ColorType;
             PooledObjectStatus oldStatus = brick.GetComponent<IPoolAble>().ObjectStatus;
+            Debug.Log("I got an object with "+oldStatus+" and im gonna change it to"+NewStatus);
             
             if (!SceneDataHolder.PooledBrickDictionary[NewStatus].ContainsKey(color))
             {

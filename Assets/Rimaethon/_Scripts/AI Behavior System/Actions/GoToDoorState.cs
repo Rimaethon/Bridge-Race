@@ -9,7 +9,7 @@ namespace Rimaethon._Scripts.AI_Behavior_System
 {
     public class GoToDoorState : ActionNode
     {
-        private float tolerance = 1.0f;
+        private float tolerance = 5.0f;
 
         protected override void OnStart()
         {

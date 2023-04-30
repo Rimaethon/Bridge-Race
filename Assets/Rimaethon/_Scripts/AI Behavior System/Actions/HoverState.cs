@@ -25,7 +25,7 @@ public class HoverState : ActionNode
         if (SceneDataHolder.PooledBrickDictionary[PooledObjectStatus.Active][
                 context.characterType.ColorType].Count != 0 || context.agent.hasPath) return State.Success;
         
-        blackboard.moveToPosition = Helpers.PickRandomFromList(SceneDataHolder.spawnedBrickPositions);
+        blackboard.moveToPosition = Helpers.PickRandomFromList(SceneDataHolder.spawnedBrickPositions[context.characterPlatform.PlatformState]);
         Debug.Log("There are "+SceneDataHolder.PooledBrickDictionary[PooledObjectStatus.Active][
             context.characterType.ColorType].Count+" active bricks and ı will go to "+ blackboard.moveToPosition);
 

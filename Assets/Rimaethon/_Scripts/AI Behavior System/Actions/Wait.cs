@@ -6,7 +6,7 @@ namespace Rimaethon._Scripts.AI_Behavior_System.Actions {
     [System.Serializable]
     public class Wait : ActionNode {
 
-        public float duration = 1;
+        public float duration = 3;
         float startTime;
 
         protected override void OnStart() {

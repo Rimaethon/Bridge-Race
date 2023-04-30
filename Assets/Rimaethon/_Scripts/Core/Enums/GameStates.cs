@@ -2,6 +2,7 @@
 {
     public enum GameStates
     {
+        OnBeforeGameStart,
         OnGameStart,
         OnObjectsInstantiated,
         OnCharacterLevelChange,

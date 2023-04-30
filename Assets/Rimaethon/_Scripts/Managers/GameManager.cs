@@ -2,16 +2,14 @@ using System.Collections.Generic;
 using Rimaethon._Scripts.Core;
 using Rimaethon._Scripts.Core.Enums;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Rimaethon._Scripts.Managers
 {
     public class GameManager : MonoBehaviour
     {
         public static GameManager instance;
-    
         public GameStates State;
-
-        public static List<Transform>[] AITargets = new List<Transform>[3];
 
 
 
@@ -28,19 +26,61 @@ namespace Rimaethon._Scripts.Managers
         private void Awake()
         {
             instance = this;
+            UpdateGameState(GameStates.OnBeforeGameStart);
         }
 
-        private void Start()
-        {
-            EventManager.Instance.Broadcast(GameStates.OnObjectsInstantiated, PlatformStates.StartingPlatform);
-        }
+     
 
 
         public void UpdateGameState(GameStates newState)
         {
             State = newState;
-            
+            switch (newState)
+            {
+                case GameStates.OnBeforeGameStart:
+                    Debug.Log("I called OnBeforeGameStart");
+                    EventManager.Instance.Broadcast<Dictionary<PlatformStates,List<Vector3>>>(GameStates.OnBeforeGameStart,SceneDataHolder._spawnPoints);
+                    
+                    break;
+                case GameStates.OnGameStart:
+                    EventManager.Instance.Broadcast(GameStates.OnGameStart);
+                    Debug.Log("I called OnGameStart");
+                    break;
+                case GameStates.OnObjectsInstantiated:
+                    EventManager.Instance.Broadcast(GameStates.OnObjectsInstantiated, PlatformStates.StartingPlatform);
+                    break;
+                case GameStates.OnCharacterLevelChange:
+                    // Do something for OnCharacterLevelChange state
+                    break;
+                case GameStates.OnCollectingBrick:
+                    
+                    break;
+                case GameStates.OnPuttingBrick:
+                    // Do something for OnPuttingBrick state
+                    break;
+                case GameStates.OnClimbingStair:
+                    // Do something for OnClimbingStair state
+                    break;
+                case GameStates.OnOpeningDoor:
+                    // Do something for OnOpeningDoor state
+                    break;
+                case GameStates.OnUpdateUI:
+                    // Do something for OnUpdateUI state
+                    break;
+                case GameStates.OnCharacterDeath:
+                    // Do something for OnCharacterDeath state
+                    break;
+                case GameStates.OnLosing:
+                    // Do something for OnLosing state
+                    break;
+                case GameStates.OnWinning:
+                    // Do something for OnWinning state
+                    break;
+                default:
+                    break;
+            }
         }
+
         
 
         private static void SetPlatform(GameObject character)

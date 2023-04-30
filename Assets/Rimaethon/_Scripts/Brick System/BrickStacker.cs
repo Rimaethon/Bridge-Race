@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Rimaethon._Scripts.Core;
 using Rimaethon._Scripts.Core.Enums;
 using Rimaethon._Scripts.Core.Interfaces;
+using Rimaethon._Scripts.Managers;
 using Rimaethon._Scripts.ObjectManagers;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ namespace Rimaethon._Scripts.Brick_System
         private GameObject _collidedStair;
         private MpbController _stairsMpbController;
         private IObjectPool _objectPool;
+        private PlatformStates _characterPlatform;
         public int BrickCount => _brickCount;
 
         #endregion
@@ -31,7 +33,8 @@ namespace Rimaethon._Scripts.Brick_System
             _characterColor = GetComponent<ITypeDeterminer>().ColorType;
             _brickHolder = transform.GetChild(1).gameObject;
             _bricksOnCharacter = new List<GameObject>();
-            
+            _characterPlatform = GetComponent<IPlatformAble>().PlatformState;
+
         }
         
         private void OnTriggerEnter(Collider other)
@@ -58,13 +61,15 @@ namespace Rimaethon._Scripts.Brick_System
             if (_characterColor == brickColor)
             {
                _objectPool.HandleBrickDictionary(PooledObjectStatus.OnPlayer,brick);
+               SceneDataHolder.spawnedBrickPositions[_characterPlatform].Remove(brick.transform.position);
+               SceneDataHolder._spawnPoints[_characterPlatform].Add(brick.transform.position);
+               Debug.Log("I added spawn point: "+brick.transform.position+"to spawnpoints and now it has "+SceneDataHolder._spawnPoints[_characterPlatform].Count+" spawn points");
                 brick.transform.position = _brickHolder.transform.position + new Vector3(0, 0.105f * _bricksOnCharacter.Count, 0);
                 brick.transform.parent = _brickHolder.transform;
                 brick.transform.localRotation = Quaternion.Euler(0, 0, 0);
                 _brickCount++;
                 brick.GetComponent<Collider>().enabled = false;
                 _bricksOnCharacter.Add(brick);
-                SceneDataHolder.spawnedBrickPositions.Remove(brick.transform.position);
                 
                 
                 
@@ -88,7 +93,9 @@ namespace Rimaethon._Scripts.Brick_System
                 stair.GetComponent<MeshRenderer>().enabled = true;
                 var lastBrick = _bricksOnCharacter[^1];
                 lastBrick.transform.parent = null;
+                Debug.Log("I returned a brick to pool with a :"+lastBrick.GetComponent<MpbController>().ObjectStatus);
                 _objectPool.ReturnBrickToPool(lastBrick);
+                
                 _bricksOnCharacter.RemoveAt(_bricksOnCharacter.Count - 1);
                 _brickCount--;
             }

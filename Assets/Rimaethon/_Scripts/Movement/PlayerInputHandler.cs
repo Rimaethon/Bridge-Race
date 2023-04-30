@@ -1,5 +1,7 @@
 using Rimaethon._Scripts.Core;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 namespace Rimaethon._Scripts.Movement
 {
     public abstract class PlayerInputHandler : MonoBehaviour

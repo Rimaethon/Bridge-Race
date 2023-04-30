@@ -9,4 +9,4 @@ EditorBuildSettings:
     path: Assets/Rimaethon/Scenes/Level1.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
-    com.unity.input.settings: {fileID: 11400000, guid: c62955cca7c4fc546bcaa68ca2ffe5ce, type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: dee51c14a7773584abd919c31af26d32, type: 2}

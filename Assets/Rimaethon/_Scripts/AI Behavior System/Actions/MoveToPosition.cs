@@ -31,7 +31,10 @@ namespace Rimaethon._Scripts.AI_Behavior_System.Actions
             {
                 return State.Success;
             }
-            if (context.agent.pathPending) {
+            if (context.agent.pathPending)
+            {
+                Debug.Log("I need to go" + blackboard.moveToPosition + "since " +
+                          Vector3.Distance(context.transform.position, blackboard.moveToPosition));
                 return State.Running;
             }
 

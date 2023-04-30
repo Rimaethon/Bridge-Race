@@ -20,10 +20,15 @@ namespace Rimaethon._Scripts.AI_Behavior_System.Actions
 
         protected override State OnUpdate()
         {
+            
             if (SceneDataHolder.PooledBrickDictionary[PooledObjectStatus.Active][
                     context.characterType.ColorType].Count==0)
             {
+                
+                
                 return State.Success;
+                
+                
             }
             if (context.brickStacker.BrickCount == 0 && context.IsGoingToDoor )
             {
