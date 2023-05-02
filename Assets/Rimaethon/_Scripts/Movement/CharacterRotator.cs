@@ -1,10 +1,9 @@
-using System;
 using Rimaethon._Scripts.Movement;
 using UnityEngine;
 
 namespace Rimaethon.Movement
 {
-    public abstract class CharacterRotator : PlayerInputHandler
+    public  class CharacterRotator : PlayerInputHandler
     {
         private Vector2 previousTouchPosition;
         private Vector2 currentTouchPosition;
@@ -14,16 +13,23 @@ namespace Rimaethon.Movement
         private float newCharacterAngle;
         [SerializeField] private float rotationSpeed=10f;
 
-        private void Start()
+        private void Awake()
         {
-            
+            CustomAwake();
 
+        }
+        
+
+        protected virtual void FixedUpdate()
+        {
+            HandleRotationWithTouchInput();
+            Debug.Log("Im working");
         }
 
         protected void HandleRotationWithTouchInput()
         {
             if (TouchDelta.sqrMagnitude < 0.0005f)
-            {
+            {Debug.Log("i returned since "+TouchDelta.sqrMagnitude);
                 return;
             }
     

@@ -26,14 +26,14 @@ namespace Rimaethon._Scripts.Movement
             Cursor.lockState = CursorLockMode.Locked;
         }
 
-        protected void Update()
+        protected  void Update()
         {
             HandleTouchInput();
            
             Move();
         }
 
-        private void FixedUpdate()
+        protected override void FixedUpdate()
         {
             HandleRotationWithTouchInput();
         }

@@ -1,3 +1,4 @@
+using System;
 using Rimaethon._Scripts.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,7 +21,7 @@ namespace Rimaethon._Scripts.Movement
         private float _normalizedY;
         private float _normalizedX;
 
-
+     
         private void OnDisable()
         {
             _playerInput.PlayerTouch.Disable();
