@@ -49,34 +49,7 @@ namespace Rimaethon._Scripts.Managers
                 case GameStates.OnObjectsInstantiated:
                     EventManager.Instance.Broadcast(GameStates.OnObjectsInstantiated, PlatformStates.StartingPlatform);
                     break;
-                case GameStates.OnCharacterLevelChange:
-                    // Do something for OnCharacterLevelChange state
-                    break;
-                case GameStates.OnCollectingBrick:
-                    
-                    break;
-                case GameStates.OnPuttingBrick:
-                    // Do something for OnPuttingBrick state
-                    break;
-                case GameStates.OnClimbingStair:
-                    // Do something for OnClimbingStair state
-                    break;
-                case GameStates.OnOpeningDoor:
-                    // Do something for OnOpeningDoor state
-                    break;
-                case GameStates.OnUpdateUI:
-                    // Do something for OnUpdateUI state
-                    break;
-                case GameStates.OnCharacterDeath:
-                    // Do something for OnCharacterDeath state
-                    break;
-                case GameStates.OnLosing:
-                    // Do something for OnLosing state
-                    break;
-                case GameStates.OnWinning:
-                    // Do something for OnWinning state
-                    break;
-                default:
+               
                     break;
             }
         }
