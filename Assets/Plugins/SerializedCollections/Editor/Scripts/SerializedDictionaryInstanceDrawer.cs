@@ -15,6 +15,8 @@ namespace AYellowpaper.SerializedCollections.Editor
 {
     public class SerializedDictionaryInstanceDrawer
     {
+        private const float MinKeyValueLabelWidth = 40f;
+        
         private FieldInfo _fieldInfo;
         private ReorderableList _unexpandedList;
         private SingleEditingData _singleEditingData;
@@ -178,7 +180,8 @@ namespace AYellowpaper.SerializedCollections.Editor
         {
             void InitializeSettings(bool fieldFlag)
             {
-                var genericArgs = _fieldInfo.FieldType.GetGenericArguments();
+                var dictionaryType = FindGenericBaseType(typeof(SerializedDictionary<,>), _fieldInfo.FieldType);
+                var genericArgs = dictionaryType.GetGenericArguments();
                 var firstProperty = ListProperty.GetArrayElementAtIndex(0);
                 var keySettings = CreateDisplaySettings(GetElementProperty(firstProperty, fieldFlag), genericArgs[fieldFlag == SCEditorUtility.KeyFlag ? 0 : 1]);
                 var settings = _propertyData.GetElementData(fieldFlag).Settings;
@@ -193,6 +196,19 @@ namespace AYellowpaper.SerializedCollections.Editor
                 InitializeSettings(SCEditorUtility.ValueFlag);
                 SavePropertyData();
             }
+        }
+
+        private static Type FindGenericBaseType(Type generic, Type toCheck)
+        {
+            while (toCheck != null && toCheck != typeof(object))
+            {
+                var cur = toCheck.IsGenericType ? toCheck.GetGenericTypeDefinition() : toCheck;
+                if (generic == cur) {
+                    return toCheck;
+                }
+                toCheck = toCheck.BaseType;
+            }
+            return null;
         }
 
         private void CheckPaging()
@@ -419,14 +435,26 @@ namespace AYellowpaper.SerializedCollections.Editor
 
         private void DoKeyValueRect(Rect rect)
         {
-            float width = EditorGUIUtility.labelWidth + 22;
+            var width = GetDesiredKeyLabelWidth(rect.width, 22);
             Rect leftRect = rect.WithWidth(width);
             Rect rightRect = leftRect.AppendRight(rect.width - width);
 
-            if (Event.current.type == EventType.Repaint && _propertyData != null)
+            if (_propertyData != null)
             {
-                _keyValueStyle.Draw(leftRect, EditorGUIUtility.TrTextContent(_propertyData.GetElementData(SerializedDictionaryDrawer.KeyFlag).Settings.DisplayName), false, false, false, false);
-                _keyValueStyle.Draw(rightRect, EditorGUIUtility.TrTextContent(_propertyData.GetElementData(SerializedDictionaryDrawer.ValueFlag).Settings.DisplayName), false, false, false, false);
+                if (Event.current.type == EventType.Repaint)
+                {
+                    _keyValueStyle.Draw(leftRect, EditorGUIUtility.TrTextContent(_propertyData.GetElementData(SerializedDictionaryDrawer.KeyFlag).Settings.DisplayName), false, false, false, false);
+                    _keyValueStyle.Draw(rightRect, EditorGUIUtility.TrTextContent(_propertyData.GetElementData(SerializedDictionaryDrawer.ValueFlag).Settings.DisplayName), false, false, false, false);
+                }
+                var changeSizeRect = leftRect.AppendRight(5);
+                changeSizeRect.x -= 2;
+                EditorGUI.BeginChangeCheck();
+                float newWidth = SCEditorUtility.DoHorizontalScale(changeSizeRect, _propertyData.KeyLabelWidth > 0f ? _propertyData.KeyLabelWidth : width);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    _propertyData.KeyLabelWidth = Mathf.Max(newWidth, MinKeyValueLabelWidth);
+                    SavePropertyData();
+                }
             }
 
             if (ListProperty.minArraySize > 0)
@@ -436,6 +464,14 @@ namespace AYellowpaper.SerializedCollections.Editor
             }
 
             EditorGUI.DrawRect(rect.AppendDown(1, -1), SerializedDictionaryDrawer.BorderColor);
+        }
+
+        private float GetDesiredKeyLabelWidth(float maxWidth, float offset = 0f)
+        {
+            float desiredWidth = _propertyData is { KeyLabelWidth: > 0 }
+                ? _propertyData.KeyLabelWidth
+                : EditorGUIUtility.labelWidth;
+            return Mathf.Clamp(desiredWidth + offset, MinKeyValueLabelWidth, maxWidth - MinKeyValueLabelWidth);
         }
 
         private void DoSearch(Rect rect)
@@ -569,7 +605,7 @@ namespace AYellowpaper.SerializedCollections.Editor
         {
             int actualIndex = _pagedIndices[index];
             var element = _activeState.GetPropertyAtIndex(actualIndex);
-            return CalculateHeightOfElement(element, _propertyData.GetElementData(SerializedDictionaryDrawer.KeyFlag).EffectiveDisplayType == DisplayType.List ? true : false, _propertyData.GetElementData(SerializedDictionaryDrawer.ValueFlag).EffectiveDisplayType == DisplayType.List ? true : false);
+            return CalculateHeightOfElement(element, _propertyData.GetElementData(SerializedDictionaryDrawer.KeyFlag).EffectiveDisplayType == DisplayType.List, _propertyData.GetElementData(SerializedDictionaryDrawer.ValueFlag).EffectiveDisplayType == DisplayType.List);
         }
 
         private void OnDrawElement(Rect rect, int index, bool isActive, bool isFocused)
@@ -582,7 +618,7 @@ namespace AYellowpaper.SerializedCollections.Editor
             int actualIndex = _pagedIndices[index];
 
             SerializedProperty kvp = _activeState.GetPropertyAtIndex(actualIndex);
-            Rect keyRect = rect.WithSize(EditorGUIUtility.labelWidth - lineLeftSpace, EditorGUIUtility.singleLineHeight);
+            Rect keyRect = rect.WithSize(GetDesiredKeyLabelWidth(rect.width) - lineLeftSpace, EditorGUIUtility.singleLineHeight);
             Rect lineRect = keyRect.WithXAndWidth(keyRect.x + keyRect.width + lineLeftSpace, lineWidth).WithHeight(rect.height);
             Rect valueRect = keyRect.AppendRight(rect.width - keyRect.width - totalSpace, totalSpace);
 

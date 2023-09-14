@@ -6,7 +6,7 @@ using UnityEngine;
 namespace AYellowpaper.SerializedCollections
 {
     [System.Serializable]
-    public partial class SerializedDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
+    public class SerializedDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
     {
         [SerializeField]
         internal List<SerializedKeyValuePair<TKey, TValue>> _serializedList = new List<SerializedKeyValuePair<TKey, TValue>>();
@@ -68,6 +68,28 @@ namespace AYellowpaper.SerializedCollections
         }
 
 #if UNITY_EDITOR
+        public new TValue this[TKey key]
+        {
+            get => base[key];
+            set
+            {
+                base[key] = value;
+                bool anyEntryWasFound = false;
+                for (int i = 0; i < _serializedList.Count; i++)
+                {
+                    var kvp = _serializedList[i];
+                    if (!SerializedCollectionsUtility.KeysAreEqual(key, kvp.Key))
+                        continue;
+                    anyEntryWasFound = true;
+                    kvp.Value = value;
+                    _serializedList[i] = kvp;
+                }
+                
+                if (!anyEntryWasFound)
+                    _serializedList.Add(new SerializedKeyValuePair<TKey, TValue>(key, value));
+            }
+        }
+        
         public new void Add(TKey key, TValue value)
         {
             base.Add(key, value);
@@ -140,6 +162,10 @@ namespace AYellowpaper.SerializedCollections
 #if UNITY_EDITOR
             if (UnityEditor.BuildPipeline.isBuildingPlayer)
                 LookupTable.RemoveDuplicates();
+
+            // TODO: is there a better way to check if the dictionary was deserialized with reflection?
+            if (_serializedList.Count == 0 && Count > 0)
+                SyncDictionaryToBackingField_Editor();
 #else
             foreach (var kvp in this)
                 _serializedList.Add(new SerializedKeyValuePair<TKey, TValue>(kvp.Key, kvp.Value));
